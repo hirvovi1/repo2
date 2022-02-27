@@ -1,37 +1,40 @@
 package fi.my.pkg;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.jupiter.api.AfterEach;
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class BookRobotTest {
+public class BookRobotTest {
 	
-	BookRobot robot;
+	private BookRobot robot;
 		
 	@BeforeEach
-	void setUp() throws Exception {
+	public void setUp() throws Exception {
 		robot = new BookRobot();
 	}
 
 	
 	@Test
-	final void testAddBookToArchive() {
+	public void testAddBookToArchive() {
 		robot.addBookToArchive(new Book());
 		Book b = robot.getNewestBookFromArchive();
 		assertNotNull(b);
 	}
 	
 	@Test
-	final void testAddNullBookToArchive() {
+	public final void testAddNullBookToArchive() {
 		assertThrows(NullPointerException.class, () -> {
 			robot.addBookToArchive(null);
 		});
 	}
 
 	@Test
-	final void testGetNewestBookFromArchive() {
+	public final void testGetNewestBookFromArchive() {
 		robot.addBookToArchive(new Book());
 		Book b = new Book();
 		robot.addBookToArchive(b);
@@ -39,10 +42,9 @@ class BookRobotTest {
 	}
 
 	@Test
-	final void testSaveArchive() {
+	public final void testSaveArchive() {
 		robot.addBookToArchive(new Book());
 		robot.saveArchive();
-		fail("Not yet implemented"); // TODO
 	}
 
 }
