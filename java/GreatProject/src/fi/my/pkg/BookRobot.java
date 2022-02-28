@@ -3,9 +3,9 @@ package fi.my.pkg;
 
 public class BookRobot extends Robot {
 	
-	public BookRobot() {
-		super.archive = new BookArchive();
-		archive.loadAll();
+	public BookRobot(Storage storage) {
+		super.archive = new BookArchive(storage);
+		archive.loadAll();	
 	}
 	
 	public void addBookToArchive(Book book) {

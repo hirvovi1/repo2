@@ -3,19 +3,26 @@ package fi.my.pkg;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.Mockito.verify;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 public class BookRobotTest {
+	
+	@Mock
+	Storage mockStorage;
 	
 	private BookRobot robot;
 		
 	@BeforeEach
 	public void setUp() throws Exception {
-		robot = new BookRobot();
+		robot = new BookRobot(mockStorage);
 	}
 
 	
@@ -43,8 +50,10 @@ public class BookRobotTest {
 
 	@Test
 	public final void testSaveArchive() {
-		robot.addBookToArchive(new Book());
+		Book b = new Book();
+		robot.addBookToArchive(b);
 		robot.saveArchive();
+		verify(mockStorage).addOrUpdate(ArgumentMatchers.eq(b));
 	}
 
 }

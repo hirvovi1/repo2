@@ -6,7 +6,12 @@ import java.util.LinkedList;
 public class Archive {
 	
 	private final LinkedList<Item> items = new LinkedList<Item>();
+	protected final Storage storage;
 	
+	public Archive(Storage storage) {
+		this.storage = storage;
+	}
+
 	public void push(Item item) {
 		if (item == null) throw new NullPointerException();
 		items.addLast(item);
@@ -17,13 +22,9 @@ public class Archive {
 		return items.removeLast();
 	}
 	
-	public void loadAll() {
-		
-	}
+	public void loadAll() {}
 	
-	public void saveAll() {
-		
-	}
+	public void saveAll() {}
 	
 	protected void addAll(Collection<Item> itemsToAdd) {
 		items.addAll(itemsToAdd);

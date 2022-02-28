@@ -1,32 +1,21 @@
 package fi.my.pkg;
 
-import java.util.Collection;
-import java.util.LinkedList;
-
 public class BookArchive extends Archive {
+
+	public BookArchive(Storage storage) {
+		super(storage);
+	}
 
 	@Override
 	public void loadAll() {
-		addAll(read());
-	}
-
-	private Collection<Item> read() {
-		return new LinkedList<Item>();
+		addAll(storage.select(" * from books"));
 	}
 
 	@Override
 	public void saveAll() {
-		write(getAll());
-	}
-
-	private void write(Iterable<Item> allItems) {
-		for (Item tem : allItems) {
-			write((Book)tem);
+		for (Item tem : getAll()) {
+			storage.addOrUpdate((Book)tem);
 		}
-	}
-	
-	private void write(Book b) {
-		
 	}
 
 }
