@@ -8,4 +8,8 @@ public abstract class Robot {
 		archive.saveAll();
 	}
 
+	protected void loadArchive() {
+		archive.loadAll();
+	}
+
 }

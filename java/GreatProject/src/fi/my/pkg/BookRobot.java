@@ -5,9 +5,9 @@ public class BookRobot extends Robot {
 	
 	public BookRobot(Storage storage) {
 		super.archive = new BookArchive(storage);
-		archive.loadAll();	
+		loadArchive();	
 	}
-	
+
 	public void addBookToArchive(Book book) {
 		archive.push(book);
 	}
@@ -15,5 +15,5 @@ public class BookRobot extends Robot {
 	public Book getNewestBookFromArchive() {
 		return (Book) archive.pop();
 	}
-
+	
 }

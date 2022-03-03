@@ -27,7 +27,7 @@ public class BookRobotTest {
 	
 	@Test
 	public void testAddBookToArchive() {
-		robot.addBookToArchive(new Book(new Id(1)));
+		robot.addBookToArchive(new Book(new Id(1), "978-3-16-148410-0"));
 		Book b = robot.getNewestBookFromArchive();
 		assertNotNull(b);
 	}
@@ -41,15 +41,15 @@ public class BookRobotTest {
 
 	@Test
 	public final void testGetNewestBookFromArchive() {
-		robot.addBookToArchive(new Book(new Id(1)));
-		Book b = new Book(new Id(2));
+		robot.addBookToArchive(new Book(new Id(1), "978-3-16-148410-0"));
+		Book b = new Book(new Id(2), "978-3-16-148410-0");
 		robot.addBookToArchive(b);
 		assertEquals(b, robot.getNewestBookFromArchive());
 	}
 
 	@Test
 	public final void testSaveArchive() {
-		Book b = new Book(new Id(1));
+		Book b = new Book(new Id(1), "978-3-16-148410-0");
 		robot.addBookToArchive(b);
 		robot.saveArchive();
 		verify(mockStorage).addOrUpdate(ArgumentMatchers.eq(b));

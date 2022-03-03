@@ -10,7 +10,10 @@ public class Storage {
 	}
 
 	public void addOrUpdate(Book b) {
-		// TODO Auto-generated method stub
+		
+	}
+	
+	public void delete(String query) {
 		
 	}
 
