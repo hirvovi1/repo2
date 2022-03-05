@@ -7,6 +7,10 @@ public class Id {
 		this.id = Long.valueOf(id);
 	}
 
+	public Id(String string) {
+		this.id = Long.parseLong(string);
+	}
+
 	public long getId() {
 		return id.longValue();
 	}
@@ -24,7 +28,7 @@ public class Id {
 
 	@Override
 	public String toString() {
-		return "id: "+ id;
+		return id.toString();
 	}
 
 }

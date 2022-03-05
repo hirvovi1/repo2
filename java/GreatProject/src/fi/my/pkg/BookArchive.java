@@ -12,7 +12,7 @@ public class BookArchive extends Archive {
 
 	@Override
 	public void loadAll() {
-		addAll(storage.select(" * from books"));
+		addAll(storage.selectAll());
 	}
 
 	private void buildIndex() {

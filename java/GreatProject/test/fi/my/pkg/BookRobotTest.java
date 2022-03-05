@@ -27,7 +27,7 @@ public class BookRobotTest {
 	
 	@Test
 	public void testAddBookToArchive() {
-		robot.addBookToArchive(new Book(new Id(1), "978-3-16-148410-0"));
+		robot.addBookToArchive(new ClassicBook(new Id(1), "978-3-16-148410-0"));
 		Book b = robot.getNewestBookFromArchive();
 		assertNotNull(b);
 	}

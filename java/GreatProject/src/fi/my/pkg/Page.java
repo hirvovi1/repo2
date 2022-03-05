@@ -1,6 +1,5 @@
 package fi.my.pkg;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class Page {
@@ -21,9 +20,9 @@ public class Page {
 	}
 
 	public void print() {
-		for (Iterator<String> iterator = lines.iterator(); iterator.hasNext();) {
-			String line = (String) iterator.next();
+		for (String line : lines) {
 			System.out.println(line);
 		}
 	}
+
 }

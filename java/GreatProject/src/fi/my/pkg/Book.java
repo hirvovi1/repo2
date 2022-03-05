@@ -1,6 +1,7 @@
 package fi.my.pkg;
 
 import org.apache.commons.validator.routines.ISBNValidator;
+import org.bson.Document;
 
 public class Book implements Item {
 	private final Id id;
@@ -9,7 +10,12 @@ public class Book implements Item {
 	public Book(Id id, String isbn) {
 		this.id = id;
 		this.isbn = isbn;
-		if (!isValidISBN()) throw new RuntimeException("invalid isbn");
+		if (!isValidISBN()) throw new IllegalArgumentException("invalid isbn");
+	}
+
+	public Book(Document document) {
+		this.id = new Id(document.get("id", String.class));
+		this.isbn = document.get("isbn", String.class);
 	}
 
 	public String getIsbn() {
@@ -23,5 +29,9 @@ public class Book implements Item {
 	
 	private boolean isValidISBN() {
 		return new ISBNValidator().isValid(isbn);
+	}
+
+	public Document createDocument() {
+		throw new RuntimeException("not implemented");
 	}
 }
