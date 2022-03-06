@@ -7,15 +7,16 @@ public class Book implements Item {
 	private final Id id;
 	private final String isbn;
 
-	public Book(Id id, String isbn) {
+	protected Book(Id id, String isbn) {
 		this.id = id;
 		this.isbn = isbn;
-		if (!isValidISBN()) throw new IllegalArgumentException("invalid isbn");
+		validate();
 	}
 
-	public Book(Document document) {
-		this.id = new Id(document.get("id", String.class));
-		this.isbn = document.get("isbn", String.class);
+	protected void validate() {
+		if (id == null) throw new IllegalArgumentException("invalid id");
+		if (id.asLong() < 1) throw new IllegalArgumentException("invalid id");
+		if (!isValidISBN()) throw new IllegalArgumentException("invalid isbn");
 	}
 
 	public String getIsbn() {
@@ -32,6 +33,8 @@ public class Book implements Item {
 	}
 
 	public Document createDocument() {
-		throw new RuntimeException("not implemented");
+		Document d = new Document();
+		d.append("id", getId().toString()).append("isbn", getIsbn());
+		return d;
 	}
 }

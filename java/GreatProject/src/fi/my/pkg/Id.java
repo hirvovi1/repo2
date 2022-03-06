@@ -11,14 +11,14 @@ public class Id {
 		this.id = Long.parseLong(string);
 	}
 
-	public long getId() {
+	public long asLong() {
 		return id.longValue();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Id)) return false;
-		return ((Id) obj).getId() == id;
+		return ((Id) obj).asLong() == id;
 	}
 
 	@Override
@@ -29,6 +29,10 @@ public class Id {
 	@Override
 	public String toString() {
 		return id.toString();
+	}
+
+	public int asInt() {
+		return id.intValue();
 	}
 
 }

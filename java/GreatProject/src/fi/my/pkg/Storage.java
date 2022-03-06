@@ -41,11 +41,11 @@ public class Storage {
 		mongoClient.close();
 	}
 
-	public List<Item> selectAll() {
+	public List<Book> selectAll() {
 		FindIterable<Document> temp = booksCollection.find();
-		LinkedList<Item> books = new LinkedList<Item>();
+		LinkedList<Book> books = new LinkedList<Book>();
 		for (Document document : temp) {
-			books.add(new Book(document));
+			books.add(new ClassicBook(document));
 			System.out.println("found a doc: " + document.toString());
 		}
 		return books;

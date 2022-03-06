@@ -1,11 +1,12 @@
 package fi.my.pkg;
 
 
-public class BookRobot extends Robot {
+public class BookRobot {
 	
+	private final BookArchive archive;
+
 	public BookRobot(Storage storage) {
-		super.archive = new BookArchive(storage);
-		loadArchive();	
+		archive = new BookArchive(storage);
 	}
 
 	public void addBookToArchive(Book book) {
@@ -14,6 +15,18 @@ public class BookRobot extends Robot {
 	
 	public Book getNewestBookFromArchive() {
 		return (Book) archive.pop();
+	}
+	
+	public Book findBook(String isbn) {
+		return ((BookArchive) archive).find(isbn);
+	}
+
+	public void saveArchive() {
+		archive.saveAll();
+	}
+
+	public int archiveSize() {
+		return archive.size();
 	}
 	
 }
