@@ -3,6 +3,7 @@ package fi.my.pkg;
 import java.util.List;
 
 public class Page {
+	
 	private final int number;
 	private final List<String> lines;
 
