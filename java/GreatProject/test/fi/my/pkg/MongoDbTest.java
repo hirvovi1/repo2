@@ -2,13 +2,13 @@ package fi.my.pkg;
 
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-@Ignore
+@Disabled("Disabled until remote db has been fixed!")
 public class MongoDbTest {
 
 	private Storage storage;
