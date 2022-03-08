@@ -22,6 +22,10 @@ public class MongoDbTest {
 		for (Book item : books) {
 			storage.delete(item.getId());
 		}
+		books = storage.selectPdfBooks();
+		for (Book item : books) {
+			storage.delete(item.getId());
+		}
 	}
 
 	@AfterEach
@@ -70,5 +74,22 @@ public class MongoDbTest {
 		Assertions.assertEquals(0, books.size());
 		books = storage.selectPdfBooks();
 		Assertions.assertEquals(0, books.size());
+	}
+	
+	@Test
+	void testAdditions() throws Exception {
+		List<String> isbnList = TestDataUtil.loadTestIsbnList();
+		saveBooks(isbnList);
+		saveBooks(isbnList);
+	}
+
+	private void saveBooks(List<String> isbnList) {
+		int id = 1;
+		for (String isbn : isbnList) {
+			ClassicBook b = new ClassicBook(id++, isbn, "title");
+			TestDataUtil.addTestPages(b.getPages());
+			storage.addOrUpdate(b);
+			System.out.println("saved: " + b.toString());
+		}
 	}
 }

@@ -24,11 +24,16 @@ public class Book implements Item {
 	protected void validate() {
 		if (id == null) throw new IllegalArgumentException("invalid id");
 		if (id.asLong() < 1) throw new IllegalArgumentException("invalid id");
-		if (!isValidISBN()) throw new IllegalArgumentException("invalid isbn");
+		if (!isValidISBN()) throw new IllegalArgumentException("invalid isbn " + isbn);
 	}
 
 	public String getIsbn() {
 		return isbn;
+	}
+
+	@Override
+	public String toString() {
+		return "id: " + id + " isbn: " + isbn;
 	}
 
 	@Override

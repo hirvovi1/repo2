@@ -2,6 +2,8 @@ package fi.my.pkg;
 
 import static org.mockito.Mockito.verify;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -56,15 +58,14 @@ public class BookRobotTest {
 
 	@Test
 	void testFindABookFromArchive() throws Exception {
-		robot.addBookToArchive(new Book(new Id(1), "978-3-16-148410-0"));
-		robot.addBookToArchive(new Book(new Id(2), "978-3-16-148410-0"));
-		robot.addBookToArchive(new Book(new Id(3), "978-3-16-148410-0"));
-		robot.addBookToArchive(new Book(new Id(4), "978-1-56581-231-4"));
-		
-		Assertions.assertEquals(4, robot.archiveSize());
+		int id = 1;
+		for (String isbn : TestDataUtil.loadTestIsbnList()) {
+			robot.addBookToArchive(new PdfBook(id++, isbn, "test.pdf"));
+		}
+		Assertions.assertEquals(30, robot.archiveSize());
 		Book found = robot.findBook("978-1-56581-231-4");
 		Assertions.assertNotNull(found);
 		Assertions.assertEquals(found.getIsbn(), "978-1-56581-231-4");
-		Assertions.assertEquals(found.getId(), new Id(4));
+		Assertions.assertEquals(found.getId(), new Id(23));
 	}
 }
