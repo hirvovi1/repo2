@@ -22,8 +22,8 @@ public class Storage {
 	private final String dbName;
 
 	public Storage() {
-		connect("mongodb://localhost:27017/?retryWrites=false");
 		this.dbName = "bookdb";
+		connect("mongodb://localhost:27017/?retryWrites=false");
 	}
 	
 	public Storage(String connectionString, String database) {
@@ -41,7 +41,7 @@ public class Storage {
 		mongoClient.close();
 	}
 
-	public List<Book> selectAll() {
+	public List<Book> selectClassicBooks() {
 		FindIterable<Document> temp = booksCollection.find();
 		LinkedList<Book> books = new LinkedList<Book>();
 		for (Document document : temp) {
@@ -64,6 +64,18 @@ public class Storage {
 
 	public void delete(Id id) {
 		booksCollection.deleteOne(createIdFilter(id));
+	}
+
+	public List<Book> selectPdfBooks() {
+		Bson filter = Filters.exists("pdfilename");
+		FindIterable<Document> temp = booksCollection.find(filter);
+		
+		LinkedList<Book> books = new LinkedList<Book>();
+		for (Document document : temp) {
+			books.add(new PdfBook(document));
+			System.out.println("found a doc: " + document.toString());
+		}
+		return books;
 	}
 
 }

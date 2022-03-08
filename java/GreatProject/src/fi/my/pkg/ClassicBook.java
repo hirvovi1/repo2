@@ -15,14 +15,6 @@ public class ClassicBook extends Book {
 		title = title(document);
 	}
 
-	private static Id id(Document document) {
-		return new Id(document.get("id", String.class));
-	}
-
-	private static String isbn(Document document) {
-		return document.get("isbn", String.class);
-	}
-
 	private String title(Document document) {
 		return document.get("title", String.class);
 	}

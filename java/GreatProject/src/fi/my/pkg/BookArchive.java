@@ -12,7 +12,8 @@ public class BookArchive {
 
 	public BookArchive(Storage storage) {
 		this.storage = storage;
-		addAll(storage.selectAll());
+		addAll(storage.selectClassicBooks());
+		addAll(storage.selectPdfBooks());
 	}
 
 	public void saveAll() {

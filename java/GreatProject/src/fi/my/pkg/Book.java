@@ -4,6 +4,14 @@ import org.apache.commons.validator.routines.ISBNValidator;
 import org.bson.Document;
 
 public class Book implements Item {
+	protected static Id id(Document document) {
+		return new Id(document.get("id", String.class));
+	}
+
+	protected static String isbn(Document document) {
+		return document.get("isbn", String.class);
+	}
+
 	private final Id id;
 	private final String isbn;
 

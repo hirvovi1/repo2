@@ -18,7 +18,7 @@ public class MongoDbTest {
 	}
 
 	private void deleteAll() {
-		List<Book> books = storage.selectAll();
+		List<Book> books = storage.selectClassicBooks();
 		for (Book item : books) {
 			storage.delete(item.getId());
 		}
@@ -35,7 +35,7 @@ public class MongoDbTest {
 		ClassicBook b = new ClassicBook(id, "978-3-16-148410-0");
 		TestDataUtil.createPages(b.getPages());
 		storage.addOrUpdate(b);
-		List<Book> books = storage.selectAll();
+		List<Book> books = storage.selectClassicBooks();
 		Assertions.assertNotNull(books);
 		Assertions.assertEquals(1, books.size());
 		Assertions.assertEquals(id, books.get(0).getId().asLong());
@@ -45,17 +45,30 @@ public class MongoDbTest {
 	void testDelete() throws Exception {
 		Id id = new Id(666);
 		storage.addOrUpdate(new ClassicBook(id, "978-3-16-148410-0"));
-		List<Book> books = storage.selectAll();
+		List<Book> books = storage.selectClassicBooks();
 		Assertions.assertEquals(1, books.size());
 		storage.delete(id);
-		books = storage.selectAll();
+		books = storage.selectClassicBooks();
 		Assertions.assertEquals(0, books.size());
 	}
 
 	@Test
 	void testSelectAll() throws Exception {
 		TestDataUtil.add500Books(storage);
-		Assertions.assertEquals(500, storage.selectAll().size());
+		Assertions.assertEquals(500, storage.selectClassicBooks().size());
 	}
 
+	@Test
+	void testAddPdfBook() throws Exception {
+		Id id = new Id(666);
+		storage.addOrUpdate(new PdfBook(id, "978-3-16-148410-0", "test.pdf"));
+		List<Book> books = storage.selectPdfBooks();
+		Assertions.assertEquals(1, books.size());
+		Assertions.assertEquals("978-3-16-148410-0", books.get(0).getIsbn());
+		storage.delete(id);
+		books = storage.selectClassicBooks();
+		Assertions.assertEquals(0, books.size());
+		books = storage.selectPdfBooks();
+		Assertions.assertEquals(0, books.size());
+	}
 }

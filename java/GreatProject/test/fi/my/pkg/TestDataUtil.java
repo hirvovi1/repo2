@@ -1,5 +1,8 @@
 package fi.my.pkg;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,4 +41,16 @@ public class TestDataUtil {
 		return lines;
 	}
 
+	static List<String> loadTestIsbnList() throws IOException{
+		FileReader input = new FileReader("./test/testdata.txt");
+		BufferedReader reader = new BufferedReader(input);
+		List<String> list = new LinkedList<String>();
+		String line = reader.readLine();
+		while (line != null) {
+			list.add(line);
+			line = reader.readLine();
+		}
+		reader.close();
+		return list;
+	}
 }
