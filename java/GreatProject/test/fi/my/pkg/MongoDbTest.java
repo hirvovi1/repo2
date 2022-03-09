@@ -5,17 +5,17 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-@Disabled("Disabled until remote db has been fixed!")
 public class MongoDbTest {
 
 	private Storage storage;
-
+	
 	@BeforeEach
 	public void setUp() throws Exception {
-		storage = new Storage("mongodb://localhost:27017/?retryWrites=false", "testdb");
+		storage = new Storage(
+				"mongodb+srv://user:fuckoff@cluster0.ep9st.mongodb.net/myFirstDatabase?"
+				+ "retryWrites=true&w=majority", "testdb");
 		deleteAll();
 	}
 

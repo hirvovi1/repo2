@@ -7,6 +7,9 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 
 import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.ServerApi;
+import com.mongodb.ServerApiVersion;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -32,7 +35,13 @@ public class Storage {
 	}
 
 	public void connect(String connectionString) {
-		mongoClient = MongoClients.create(new ConnectionString(connectionString));
+		MongoClientSettings settings = MongoClientSettings.builder()
+		        .applyConnectionString(new ConnectionString(connectionString))
+		        .serverApi(ServerApi.builder()
+		            .version(ServerApiVersion.V1)
+		            .build())
+		        .build();
+		mongoClient = MongoClients.create(settings);
 		MongoDatabase database = mongoClient.getDatabase(dbName);
 		booksCollection = database.getCollection("books");
 	}
