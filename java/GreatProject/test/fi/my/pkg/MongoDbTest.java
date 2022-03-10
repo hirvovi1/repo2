@@ -57,7 +57,7 @@ public class MongoDbTest {
 	@Test
 	void testAddPdfBook() throws Exception {
 		Id id = new Id(666);
-		storage.addOrUpdate(new PdfBook(id, "978-3-16-148410-0", "test.pdf"));
+		storage.addOrUpdate(new PdfBook(id, "978-3-16-148410-0", "test.pdf", "title"));
 		List<Book> books = storage.selectPdfBooks();
 		Assertions.assertEquals(1, books.size());
 		Assertions.assertEquals("978-3-16-148410-0", books.get(0).getIsbn());

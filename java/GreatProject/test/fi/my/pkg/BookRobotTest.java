@@ -39,8 +39,8 @@ public class BookRobotTest {
 
 	@Test
 	public final void testGetNewestBookFromArchive() {
-		robot.addBookToArchive(new Book(new Id(1), "978-3-16-148410-0"));
-		Book b = new Book(new Id(2), "978-3-16-148410-0");
+		robot.addBookToArchive(new Book(new Id(1), "978-3-16-148410-0", "title"));
+		Book b = new Book(new Id(2), "978-3-16-148410-0", "title");
 		robot.addBookToArchive(b);
 		Assertions.assertEquals(b, robot.getNewestBookFromArchive());
 	}
@@ -58,7 +58,7 @@ public class BookRobotTest {
 	void testFindABookFromArchive() throws Exception {
 		int id = 1;
 		for (String isbn : TestDataUtil.loadTestIsbnList()) {
-			robot.addBookToArchive(new PdfBook(id++, isbn, "test.pdf"));
+			robot.addBookToArchive(new PdfBook(id++, isbn, "test.pdf", "title"));
 		}
 		Assertions.assertEquals(30, robot.archiveSize());
 		Book found = robot.findBook("978-1-56581-231-4");

@@ -8,20 +8,12 @@ import org.bson.Document;
 public class ClassicBook extends Book {
 
 	private final List<Page> pages = new LinkedList<Page>();
-	private String title;
-
 	public ClassicBook(Document document) {
-		super(id(document), isbn(document));
-		title = title(document);
-	}
-
-	private String title(Document document) {
-		return document.get("title", String.class);
+		super(id(document), isbn(document), title(document));
 	}
 
 	public ClassicBook(Id id, String isbn) {
-		super(id, isbn);
-		title = "";
+		super(id, isbn, "");
 	}
 
 	public ClassicBook(int id, String isbn) {
@@ -58,10 +50,6 @@ public class ClassicBook extends Book {
 		for (Page page : pages) {
 			page.print();
 		}
-	}
-
-	public String getTitle() {
-		return title;
 	}
 
 }
