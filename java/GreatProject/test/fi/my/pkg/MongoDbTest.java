@@ -16,18 +16,7 @@ public class MongoDbTest {
 		storage = new Storage(
 				"mongodb+srv://user:fuckoff@cluster0.ep9st.mongodb.net/myFirstDatabase?"
 				+ "retryWrites=true&w=majority", "testdb");
-		deleteAll();
-	}
-
-	private void deleteAll() {
-		List<Book> books = storage.selectClassicBooks();
-		for (Book item : books) {
-			storage.delete(item.getId());
-		}
-		books = storage.selectPdfBooks();
-		for (Book item : books) {
-			storage.delete(item.getId());
-		}
+		storage.deleteAll();
 	}
 
 	@AfterEach
@@ -60,8 +49,9 @@ public class MongoDbTest {
 
 	@Test
 	void testSelectAll() throws Exception {
-		TestDataUtil.add500Books(storage);
-		Assertions.assertEquals(500, storage.selectClassicBooks().size());
+		final int howMany = 80;
+		TestDataUtil.addBooks(howMany , storage);
+		Assertions.assertEquals(howMany, storage.selectClassicBooks().size());
 	}
 
 	@Test

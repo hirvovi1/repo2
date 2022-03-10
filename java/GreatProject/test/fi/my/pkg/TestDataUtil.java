@@ -15,8 +15,8 @@ public class TestDataUtil {
 		}
 	}
 
-	static void add500Books(Storage storage) {
-		for (int i = 1; i <= 500; i++) {
+	static void addBooks(int howMany, Storage storage) {
+		for (int i = 1; i <= howMany; i++) {
 			storage.addOrUpdate(new ClassicBook(i, "978-3-16-148410-0"));
 		}
 	}

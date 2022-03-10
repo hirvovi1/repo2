@@ -74,6 +74,10 @@ public class Storage {
 	public void delete(Id id) {
 		booksCollection.deleteOne(createIdFilter(id));
 	}
+	
+	public void deleteAll() {
+		booksCollection.deleteMany(Filters.empty());
+	}
 
 	public List<Book> selectPdfBooks() {
 		Bson filter = Filters.exists("pdfilename");
