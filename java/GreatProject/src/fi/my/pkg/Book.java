@@ -25,8 +25,9 @@ public class Book implements Item {
 	
 	protected void validate() {
 		if (id == null) throw new IllegalArgumentException("invalid id");
-		if (id.asLong() < 1) throw new IllegalArgumentException("invalid id");
+		if (id.asLong() < 1) throw new IllegalArgumentException("invalid id " + id);
 		if (!isValidISBN()) throw new IllegalArgumentException("invalid isbn " + isbn);
+		if (title == null) throw new IllegalArgumentException("invalid title");
 	}
 
 	public String getIsbn() {
