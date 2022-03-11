@@ -13,16 +13,8 @@ public class ClassicBook extends Book {
 		super(id(document), isbn(document), title(document));
 	}
 
-	public ClassicBook(Id id, String isbn) {
-		super(id, isbn, "");
-	}
-
-	public ClassicBook(int id, String isbn) {
-		this(new Id(id), isbn);
-	}
-
 	public ClassicBook(int id, String isbn, String title) {
-		super(new Id(id), isbn, title);
+		super(id, isbn, title);
 	}
 
 	@Override

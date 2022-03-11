@@ -25,7 +25,7 @@ public class BookRobotTest {
 
 	@Test
 	public void testAddBookToArchive() {
-		robot.addBookToArchive(new ClassicBook(1, "978-3-16-148410-0"));
+		robot.addBookToArchive(new ClassicBook(1, "978-3-16-148410-0", "title"));
 		Book b = robot.getNewestBookFromArchive();
 		Assertions.assertNotNull(b);
 	}
@@ -39,8 +39,8 @@ public class BookRobotTest {
 
 	@Test
 	public final void testGetNewestBookFromArchive() {
-		robot.addBookToArchive(new Book(new Id(1), "978-3-16-148410-0", "title"));
-		Book b = new Book(new Id(2), "978-3-16-148410-0", "title");
+		robot.addBookToArchive(new Book(1, "978-3-16-148410-0", "title"));
+		Book b = new Book(2, "978-3-16-148410-0", "title");
 		robot.addBookToArchive(b);
 		Assertions.assertEquals(b, robot.getNewestBookFromArchive());
 	}
@@ -61,9 +61,9 @@ public class BookRobotTest {
 			robot.addBookToArchive(new PdfBook(id++, isbn, "test.pdf", "title"));
 		}
 		Assertions.assertEquals(30, robot.archiveSize());
-		Book found = robot.findBook("978-1-56581-231-4");
+		Book found = robot.findBook(new Isbn("978-1-56581-231-4"));
 		Assertions.assertNotNull(found);
-		Assertions.assertEquals(found.getIsbn(), "978-1-56581-231-4");
+		Assertions.assertEquals(found.getIsbn(), new Isbn("978-1-56581-231-4"));
 		Assertions.assertEquals(found.getId(), new Id(23));
 	}
 	
@@ -80,6 +80,6 @@ public class BookRobotTest {
 		Assertions.assertNotNull(found);
 		Assertions.assertEquals(found.getTitle(), titleToFind);
 		Assertions.assertEquals(found.getId(), new Id(9));
-		Assertions.assertEquals(found.getIsbn(), "9789581054046");
+		Assertions.assertEquals(found.getIsbn().getIsbn(), "9789581054046");
 	}
 }

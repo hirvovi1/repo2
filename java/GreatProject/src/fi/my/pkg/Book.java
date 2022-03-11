@@ -5,18 +5,18 @@ import org.bson.Document;
 
 public class Book implements Item {
 	private final Id id;
-	private final String isbn;
+	private final Isbn isbn;
 	protected Title title;
 	
-	protected Book(Id id, String isbn, String title) {
-		this.id = id;
-		this.isbn = isbn;
+	protected Book(int id, String isbn, String title) {
+		this.id = new Id(id);
+		this.isbn = new Isbn(isbn);
 		this.title = new Title(title);
 		validate();
 	}
 
-	protected static Id id(Document document) {
-		return new Id(document.get("id", String.class));
+	protected static int id(Document document) {
+		return Integer.parseInt(document.get("id", String.class));
 	}
 	
 	protected static String isbn(Document document) {
@@ -29,8 +29,14 @@ public class Book implements Item {
 		if (!isValidISBN()) throw new IllegalArgumentException("invalid isbn " + isbn);
 		if (title == null) throw new IllegalArgumentException("invalid title");
 	}
+	
+	public Document createDocument() {
+		Document d = new Document();
+		d.append("id", id.toString()).append("isbn", isbn.getIsbn()).append("title", title.getTitle());
+		return d;
+	}
 
-	public String getIsbn() {
+	public Isbn getIsbn() {
 		return isbn;
 	}
 
@@ -45,15 +51,8 @@ public class Book implements Item {
 	}
 	
 	private boolean isValidISBN() {
-		return new ISBNValidator().isValid(isbn);
+		return new ISBNValidator().isValid(isbn.getIsbn());
 	}
-
-	public Document createDocument() {
-		Document d = new Document();
-		d.append("id", id.toString()).append("isbn", isbn).append("title", title.getTitle());
-		return d;
-	}
-
 	protected static String title(Document document) {
 		return document.get("title", String.class);
 	}

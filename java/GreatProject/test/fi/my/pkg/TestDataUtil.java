@@ -17,12 +17,12 @@ public class TestDataUtil {
 
 	static void addBooks(int howMany, Storage storage) {
 		for (int i = 1; i <= howMany; i++) {
-			storage.addOrUpdate(new ClassicBook(i, "978-3-16-148410-0"));
+			storage.addOrUpdate(new ClassicBook(i, "978-3-16-148410-0", "title"));
 		}
 	}
 
 	static ClassicBook addTestBookToArchive(BookRobot br) {
-		ClassicBook book = new ClassicBook(1, "q1222-3353-4363-234553");
+		ClassicBook book = new ClassicBook(1, "q1222-3353-4363-234553", "title");
 		br.addBookToArchive(book);
 		addTestPages(book.getPages());
 		return book;

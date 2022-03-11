@@ -8,20 +8,15 @@ public class PdfBook extends Book {
 
 	private final File pdfFile;
 
-	public PdfBook(Id id, String isbn, String fileName, String title) {
+	public PdfBook(int id, String isbn, String fileName, String title) {
 		super(id, isbn, title);
 		pdfFile = new File(fileName);
 		if (!pdfFile.exists()) throw new IllegalArgumentException("file not found");
-	}
-	
-	public PdfBook(int id, String isbn, String fileName, String title) {
-		this(new Id(id), isbn, fileName, title);
 	}
 
 	public PdfBook(Document document) {
 		this(id(document), isbn(document), filename(document), title(document));
 	}
-
 
 	private static String filename(Document document) {
 		return document.getString("pdfilename");

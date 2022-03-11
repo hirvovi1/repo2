@@ -29,7 +29,7 @@ public class MongoDbTest {
 	@Test
 	public void testAddOrUpdate() {
 		int id = 3;
-		ClassicBook b = new ClassicBook(id, "978-3-16-148410-0");
+		ClassicBook b = new ClassicBook(id, "978-3-16-148410-0", "title");
 		TestDataUtil.createPages(b.getPages());
 		storage.addOrUpdate(b);
 		List<Book> books = storage.selectClassicBooks();
@@ -41,7 +41,7 @@ public class MongoDbTest {
 	@Test
 	void testDelete() throws Exception {
 		Id id = new Id(666);
-		storage.addOrUpdate(new ClassicBook(id, "978-3-16-148410-0"));
+		storage.addOrUpdate(new ClassicBook(id.asInt(), "978-3-16-148410-0", "title"));
 		List<Book> books = storage.selectClassicBooks();
 		Assertions.assertEquals(1, books.size());
 		storage.delete(id);
@@ -59,10 +59,10 @@ public class MongoDbTest {
 	@Test
 	void testAddPdfBook() throws Exception {
 		Id id = new Id(666);
-		storage.addOrUpdate(new PdfBook(id, "978-3-16-148410-0", "test.pdf", "title"));
+		storage.addOrUpdate(new PdfBook(id.asInt(), "978-3-16-148410-0", "test.pdf", "title"));
 		List<Book> books = storage.selectPdfBooks();
 		Assertions.assertEquals(1, books.size());
-		Assertions.assertEquals("978-3-16-148410-0", books.get(0).getIsbn());
+		Assertions.assertEquals("978-3-16-148410-0", books.get(0).getIsbn().getIsbn());
 		storage.delete(id);
 		books = storage.selectClassicBooks();
 		Assertions.assertEquals(0, books.size());

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class BookArchive {
-	private final HashMap<String, Book> isbnToBookMap = new HashMap<String, Book>();
+	private final HashMap<Isbn, Book> isbnToBookMap = new HashMap<Isbn, Book>();
 	private final LinkedList<Book> books = new LinkedList<Book>();
 	private final HashMap<Id, Book> idToBookMap = new HashMap<Id, Book>();
 	private final HashMap<Title, Book> titleToBookMap = new HashMap<Title, Book>();
@@ -23,7 +23,7 @@ public class BookArchive {
 		}
 	}
 
-	public Book find(String isbn) {
+	public Book find(Isbn isbn) {
 		if (!isbnToBookMap.containsKey(isbn)) {
 			buildIsbnToBookMap();
 		}
@@ -36,22 +36,26 @@ public class BookArchive {
 		}
 	}
 
-	public void push(Book item) {
-		if (item == null)
+	public void push(Book book) {
+		if (book == null)
 			throw new NullPointerException();
-		books.addLast(item);
-		idToBookMap.put(item.getId(), item);
+		books.addLast(book);
+		idToBookMap.put(book.getId(), book);
+		isbnToBookMap.put(book.getIsbn(), book);
+		titleToBookMap.put(book.getTitle(), book);
 	}
 
 	public Book pop() {
 		if (books.isEmpty())
 			return null;
-		Book temp = books.removeLast();
-		idToBookMap.remove(temp.getId());
-		return temp;
+		Book book = books.removeLast();
+		idToBookMap.remove(book.getId());
+		isbnToBookMap.remove(book.getIsbn());
+		titleToBookMap.remove(book.getTitle());
+		return book;
 	}
 
-	public Book get(Id id) {
+	public Book find(Id id) {
 		return idToBookMap.get(id);
 	}
 

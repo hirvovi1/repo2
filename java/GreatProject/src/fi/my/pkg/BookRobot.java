@@ -17,12 +17,12 @@ public class BookRobot {
 		return (Book) archive.pop();
 	}
 	
-	public Book findBook(String isbn) {
+	public Book findBook(Isbn isbn) {
 		return ((BookArchive) archive).find(isbn);
 	}
 	
 	public Book findBook(Id id) {
-		return ((BookArchive) archive).get(id);
+		return ((BookArchive) archive).find(id);
 	}
 	
 	public Book findBook(Title title) {
