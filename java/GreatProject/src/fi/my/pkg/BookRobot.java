@@ -20,6 +20,14 @@ public class BookRobot {
 	public Book findBook(String isbn) {
 		return ((BookArchive) archive).find(isbn);
 	}
+	
+	public Book findBook(Id id) {
+		return ((BookArchive) archive).get(id);
+	}
+	
+	public Book findBook(Title title) {
+		return  ((BookArchive) archive).find(title);
+	}
 
 	public void saveArchive() {
 		archive.saveAll();

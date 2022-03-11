@@ -5,9 +5,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class BookArchive {
-	private final HashMap<String, Book> index = new HashMap<String, Book>();
+	private final HashMap<String, Book> isbnToBookMap = new HashMap<String, Book>();
 	private final LinkedList<Book> books = new LinkedList<Book>();
 	private final HashMap<Id, Book> idToBookMap = new HashMap<Id, Book>();
+	private final HashMap<Title, Book> titleToBookMap = new HashMap<Title, Book>();
 	private final Storage storage;
 
 	public BookArchive(Storage storage) {
@@ -23,21 +24,17 @@ public class BookArchive {
 	}
 
 	public Book find(String isbn) {
-		if (!index.containsKey(isbn)) {
-			buildIndex();
+		if (!isbnToBookMap.containsKey(isbn)) {
+			buildIsbnToBookMap();
 		}
-		return index.get(isbn);
+		return isbnToBookMap.get(isbn);
 	}
 
-	private void buildIndex() {
-		System.out.println("building index");
+	private void buildIsbnToBookMap() {
 		for (Book b : getAll()) {
-			index.put(b.getIsbn(), b);
-			System.out.print("id: " + b.getId() + " " + b.getIsbn() + " ");
+			isbnToBookMap.put(b.getIsbn(), b);
 		}
-		System.out.println("\nbuilding index ended.");
 	}
-
 	public void push(Book item) {
 		if (item == null)
 			throw new NullPointerException();
@@ -46,13 +43,14 @@ public class BookArchive {
 	}
 
 	public Book pop() {
-		if (books.isEmpty()) return null;
+		if (books.isEmpty())
+			return null;
 		Book temp = books.removeLast();
 		idToBookMap.remove(temp.getId());
 		return temp;
 	}
 
-	public Item get(Id id) {
+	public Book get(Id id) {
 		return idToBookMap.get(id);
 	}
 
@@ -66,6 +64,19 @@ public class BookArchive {
 
 	public int size() {
 		return books.size();
+	}
+
+	public Book find(Title title) {
+		if (!titleToBookMap.containsKey(title)) {
+			buildTitleToBookMap();
+		}
+		return titleToBookMap.get(title);
+	}
+	
+	private void buildTitleToBookMap() {
+		for (Book b : getAll()) {
+			titleToBookMap.put(b.getTitle(), b);
+		}
 	}
 
 }

@@ -55,7 +55,7 @@ public class BookRobotTest {
 	}
 
 	@Test
-	void testFindABookFromArchive() throws Exception {
+	void testFindABookFromArchiveWithIsbn() throws Exception {
 		int id = 1;
 		for (String isbn : TestDataUtil.loadTestIsbnList()) {
 			robot.addBookToArchive(new PdfBook(id++, isbn, "test.pdf", "title"));
@@ -65,5 +65,21 @@ public class BookRobotTest {
 		Assertions.assertNotNull(found);
 		Assertions.assertEquals(found.getIsbn(), "978-1-56581-231-4");
 		Assertions.assertEquals(found.getId(), new Id(23));
+	}
+	
+	@Test
+	void testFindABookFromArchiveWithTitle() throws Exception {
+		int id = 1;
+		for (String isbn : TestDataUtil.loadTestIsbnList()) {
+			robot.addBookToArchive(new PdfBook(id, isbn, "test.pdf", "title" + id));
+			id++;
+		}
+		Assertions.assertEquals(30, robot.archiveSize());
+		Title titleToFind = new Title("title9");
+		Book found = robot.findBook(titleToFind );
+		Assertions.assertNotNull(found);
+		Assertions.assertEquals(found.getTitle(), titleToFind);
+		Assertions.assertEquals(found.getId(), new Id(9));
+		Assertions.assertEquals(found.getIsbn(), "9789581054046");
 	}
 }

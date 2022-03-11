@@ -8,6 +8,7 @@ import org.bson.Document;
 public class ClassicBook extends Book {
 
 	private final List<Page> pages = new LinkedList<Page>();
+	
 	public ClassicBook(Document document) {
 		super(id(document), isbn(document), title(document));
 	}
@@ -21,8 +22,7 @@ public class ClassicBook extends Book {
 	}
 
 	public ClassicBook(int id, String isbn, String title) {
-		this(new Id(id), isbn);
-		this.title = title;
+		super(new Id(id), isbn, title);
 	}
 
 	@Override

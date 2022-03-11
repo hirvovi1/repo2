@@ -6,12 +6,12 @@ import org.bson.Document;
 public class Book implements Item {
 	private final Id id;
 	private final String isbn;
-	protected String title;
+	protected Title title;
 	
 	protected Book(Id id, String isbn, String title) {
 		this.id = id;
 		this.isbn = isbn;
-		this.title = title;
+		this.title = new Title(title);
 		validate();
 	}
 
@@ -58,7 +58,7 @@ public class Book implements Item {
 		return document.get("title", String.class);
 	}
 
-	public String getTitle() {
+	public Title getTitle() {
 		return title;
 	}
 }
