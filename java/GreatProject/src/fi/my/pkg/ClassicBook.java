@@ -28,7 +28,6 @@ public class ClassicBook extends Book {
 	@Override
 	public Document createDocument() {
 		Document d = super.createDocument();
-		d.append("title", getTitle());
 		d.append("pages", createPagesToDocument());
 		return d;
 	}

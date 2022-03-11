@@ -50,7 +50,7 @@ public class Book implements Item {
 
 	public Document createDocument() {
 		Document d = new Document();
-		d.append("id", id.toString()).append("isbn", isbn).append("title", title);
+		d.append("id", id.toString()).append("isbn", isbn).append("title", title.getTitle());
 		return d;
 	}
 
