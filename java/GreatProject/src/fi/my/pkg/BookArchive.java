@@ -35,6 +35,7 @@ public class BookArchive {
 			isbnToBookMap.put(b.getIsbn(), b);
 		}
 	}
+
 	public void push(Book item) {
 		if (item == null)
 			throw new NullPointerException();
@@ -54,11 +55,11 @@ public class BookArchive {
 		return idToBookMap.get(id);
 	}
 
-	protected void addAll(Collection<Book> itemsToAdd) {
+	private void addAll(Collection<Book> itemsToAdd) {
 		books.addAll(itemsToAdd);
 	}
 
-	protected Iterable<Book> getAll() {
+	private Iterable<Book> getAll() {
 		return books;
 	}
 
@@ -72,7 +73,7 @@ public class BookArchive {
 		}
 		return titleToBookMap.get(title);
 	}
-	
+
 	private void buildTitleToBookMap() {
 		for (Book b : getAll()) {
 			titleToBookMap.put(b.getTitle(), b);

@@ -17,6 +17,8 @@ public class MongoDbTest {
 				"mongodb+srv://user:fuckoff@cluster0.ep9st.mongodb.net/myFirstDatabase?"
 				+ "retryWrites=true&w=majority", "testdb");
 		storage.deleteAll();
+		Assertions.assertTrue(storage.selectClassicBooks().isEmpty());
+		Assertions.assertTrue(storage.selectPdfBooks().isEmpty());
 	}
 
 	@AfterEach
