@@ -36,5 +36,9 @@ public class BookRobot {
 	public int archiveSize() {
 		return archive.size();
 	}
+
+	public void delete(Id id) {
+		archive.delete(id);
+	}
 	
 }

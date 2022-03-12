@@ -2,6 +2,8 @@ package fi.my.pkg;
 
 import static org.mockito.Mockito.verify;
 
+import java.io.IOException;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -61,25 +63,49 @@ public class BookRobotTest {
 			robot.addBookToArchive(new PdfBook(id++, isbn, "test.pdf", "title"));
 		}
 		Assertions.assertEquals(30, robot.archiveSize());
-		Book found = robot.findBook(new Isbn("978-1-56581-231-4"));
+		Isbn isbnToFind = new Isbn("978-1-56581-231-4");
+		final Id idToFind = new Id(23);
+		Book found = robot.findBook(isbnToFind);
+		assertBookIsFound(isbnToFind, idToFind, found);
+	}
+
+	private void assertBookIsFound(Isbn isbnToFind, final Id idToFind, Book found) {
 		Assertions.assertNotNull(found);
-		Assertions.assertEquals(found.getIsbn(), new Isbn("978-1-56581-231-4"));
-		Assertions.assertEquals(found.getId(), new Id(23));
+		Assertions.assertEquals(found.getIsbn(), isbnToFind);
+		Assertions.assertEquals(found.getId(), idToFind);
 	}
 	
 	@Test
 	void testFindABookFromArchiveWithTitle() throws Exception {
+		addTestBooksWithTestIsbnList();
+		Assertions.assertEquals(30, robot.archiveSize());
+		
+		final Id foundId = findWithTitleAndAssertBookIsFound(new Title("title9"));
+		deleteFoundBookAndAssertDeletion(foundId);
+	}
+
+	private void addTestBooksWithTestIsbnList() throws IOException {
 		int id = 1;
 		for (String isbn : TestDataUtil.loadTestIsbnList()) {
 			robot.addBookToArchive(new PdfBook(id, isbn, "test.pdf", "title" + id));
 			id++;
 		}
-		Assertions.assertEquals(30, robot.archiveSize());
-		Title titleToFind = new Title("title9");
+	}
+
+	private Id findWithTitleAndAssertBookIsFound(Title titleToFind) {
 		Book found = robot.findBook(titleToFind );
 		Assertions.assertNotNull(found);
 		Assertions.assertEquals(found.getTitle(), titleToFind);
-		Assertions.assertEquals(found.getId(), new Id(9));
+		
+		final Id foundId = found.getId();
+		Assertions.assertEquals(foundId, new Id(9));
 		Assertions.assertEquals(found.getIsbn().getIsbn(), "9789581054046");
+		return foundId;
 	}
+	
+	private void deleteFoundBookAndAssertDeletion(final Id foundId) {
+		robot.delete(foundId);
+		Assertions.assertNull(robot.findBook(foundId));
+	}
+	
 }
