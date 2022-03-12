@@ -18,6 +18,11 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.ReplaceOptions;
 
+import fi.my.pkg.dependents.Book;
+import fi.my.pkg.dependents.ClassicBook;
+import fi.my.pkg.dependents.Id;
+import fi.my.pkg.dependents.PdfBook;
+
 public class Storage {
 
 	private MongoCollection<Document> booksCollection;

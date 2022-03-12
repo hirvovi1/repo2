@@ -4,6 +4,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import fi.my.pkg.dependents.Book;
+import fi.my.pkg.dependents.Id;
+import fi.my.pkg.dependents.Isbn;
+import fi.my.pkg.dependents.Item;
+import fi.my.pkg.dependents.Title;
+
 public class BookArchive {
 
 	private final HashMap<Id, Book> idToBookMap = new HashMap<Id, Book>();

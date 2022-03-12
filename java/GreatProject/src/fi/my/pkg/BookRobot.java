@@ -1,5 +1,9 @@
 package fi.my.pkg;
 
+import fi.my.pkg.dependents.Book;
+import fi.my.pkg.dependents.Id;
+import fi.my.pkg.dependents.Isbn;
+import fi.my.pkg.dependents.Title;
 
 public class BookRobot {
 	

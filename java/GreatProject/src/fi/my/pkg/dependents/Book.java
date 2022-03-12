@@ -1,4 +1,4 @@
-package fi.my.pkg;
+package fi.my.pkg.dependents;
 
 import org.apache.commons.validator.routines.ISBNValidator;
 import org.bson.Document;

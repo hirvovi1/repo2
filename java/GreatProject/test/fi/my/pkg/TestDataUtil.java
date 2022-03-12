@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import fi.my.pkg.dependents.ClassicBook;
+import fi.my.pkg.dependents.Page;
+
 public class TestDataUtil {
 
 	static void createPages(List<Page> list) {

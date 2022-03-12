@@ -12,6 +12,13 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import fi.my.pkg.dependents.Book;
+import fi.my.pkg.dependents.ClassicBook;
+import fi.my.pkg.dependents.Id;
+import fi.my.pkg.dependents.Isbn;
+import fi.my.pkg.dependents.PdfBook;
+import fi.my.pkg.dependents.Title;
+
 @ExtendWith(MockitoExtension.class)
 public class BookRobotTest {
 
@@ -41,8 +48,8 @@ public class BookRobotTest {
 
 	@Test
 	public final void testGetNewestBookFromArchive() {
-		robot.addBookToArchive(new Book(1, "978-3-16-148410-0", "title"));
-		Book b = new Book(2, "978-3-16-148410-0", "title");
+		robot.addBookToArchive(new ClassicBook(1, "978-3-16-148410-0", "title"));
+		Book b = new ClassicBook(2, "978-3-16-148410-0", "title");
 		robot.addBookToArchive(b);
 		Assertions.assertEquals(b, robot.getNewestBookFromArchive());
 	}

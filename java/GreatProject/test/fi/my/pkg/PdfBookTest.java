@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import fi.my.pkg.dependents.PdfBook;
+
 class PdfBookTest {
 
 	PdfBook book;
