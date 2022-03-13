@@ -18,19 +18,19 @@ public class BookRobot {
 	}
 	
 	public Book getNewestBookFromArchive() {
-		return (Book) archive.pop();
+		return archive.pop();
 	}
 	
 	public Book findBook(Isbn isbn) {
-		return ((BookArchive) archive).find(isbn);
+		return archive.find(isbn);
 	}
 	
 	public Book findBook(Id id) {
-		return ((BookArchive) archive).find(id);
+		return archive.find(id);
 	}
 	
 	public Book findBook(Title title) {
-		return  ((BookArchive) archive).find(title);
+		return archive.find(title);
 	}
 
 	public void saveArchive() {

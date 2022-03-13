@@ -88,7 +88,7 @@ public class BookRobotTest {
 		Assertions.assertEquals(30, robot.archiveSize());
 		
 		final Id foundId = findWithTitleAndAssertBookIsFound(new Title("title9"));
-		deleteFoundBookAndAssertDeletion(foundId);
+		deleteBookAndAssertDeletion(foundId);
 	}
 
 	private void addTestBooksWithTestIsbnList() throws IOException {
@@ -110,7 +110,7 @@ public class BookRobotTest {
 		return foundId;
 	}
 	
-	private void deleteFoundBookAndAssertDeletion(final Id foundId) {
+	private void deleteBookAndAssertDeletion(final Id foundId) {
 		robot.delete(foundId);
 		Assertions.assertNull(robot.findBook(foundId));
 	}
