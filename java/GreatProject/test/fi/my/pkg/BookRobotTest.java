@@ -12,6 +12,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import fi.my.pkg.dependents.AudioBook;
 import fi.my.pkg.dependents.Book;
 import fi.my.pkg.dependents.ClassicBook;
 import fi.my.pkg.dependents.Id;
@@ -65,15 +66,19 @@ public class BookRobotTest {
 
 	@Test
 	void testFindABookFromArchiveWithIsbn() throws Exception {
+		loadTestPdfBooks();
+		Isbn isbnToFind = new Isbn("978-1-56581-231-4");
+		final Id idToFind = new Id(23);
+		Book found = robot.findBook(isbnToFind);
+		assertBookIsFound(isbnToFind, idToFind, found);
+	}
+
+	private void loadTestPdfBooks() throws IOException {
 		int id = 1;
 		for (String isbn : TestDataUtil.loadTestIsbnList()) {
 			robot.addBookToArchive(new PdfBook(id++, isbn, "test.pdf", "title"));
 		}
 		Assertions.assertEquals(30, robot.archiveSize());
-		Isbn isbnToFind = new Isbn("978-1-56581-231-4");
-		final Id idToFind = new Id(23);
-		Book found = robot.findBook(isbnToFind);
-		assertBookIsFound(isbnToFind, idToFind, found);
 	}
 
 	private void assertBookIsFound(Isbn isbnToFind, final Id idToFind, Book found) {
@@ -115,4 +120,28 @@ public class BookRobotTest {
 		Assertions.assertNull(robot.findBook(foundId));
 	}
 	
+	@Test
+	public final void testAddAudioToArchiveThrowsException() {
+		IllegalArgumentException e = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			robot.addBookToArchive(new AudioBook(1, "9789581054046", "title", ""));
+		});
+		Assertions.assertEquals("file not found", e.getMessage());
+	}
+	
+	@Test
+	void testAddAudioBook() throws Exception {
+		addTestAudioBooksWithTestIsbnList();
+		Isbn isbnToFind = new Isbn("978-1-56581-231-4");
+		final Id idToFind = new Id(23);
+		Book found = robot.findBook(isbnToFind);
+		assertBookIsFound(isbnToFind, idToFind, found);
+	}
+	
+	private void addTestAudioBooksWithTestIsbnList() throws IOException {
+		int id = 1;
+		for (String isbn : TestDataUtil.loadTestIsbnList()) {
+			robot.addBookToArchive(new AudioBook(id, isbn, "title" + id, "test.pdf"));
+			id++;
+		}
+	}
 }

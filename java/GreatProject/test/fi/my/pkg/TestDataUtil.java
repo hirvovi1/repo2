@@ -35,7 +35,7 @@ public class TestDataUtil {
 		pages.add(new Page(1, getLines()));
 	}
 
-	static List<String> getLines() {
+	public static List<String> getLines() {
 		LinkedList<String> lines = new LinkedList<String>();
 		lines.add("line 1");
 		lines.add("line 2");

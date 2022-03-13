@@ -1,9 +1,10 @@
-package fi.my.pkg;
+package fi.my.pkg.dependents;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import fi.my.pkg.TestDataUtil;
 import fi.my.pkg.dependents.Page;
 
 class PageTest {
