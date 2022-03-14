@@ -58,15 +58,9 @@ public class Storage {
 		mongoClient.close();
 	}
 
-	public List<Book> selectClassicBooks() {
-		// TODO bug, filter classic books
-		FindIterable<Document> temp = booksCollection.find();
-		LinkedList<Book> books = new LinkedList<Book>();
-		for (Document document : temp) {
-			books.add(new ClassicBook(document));
-			System.out.println("found a doc: " + document.toString());
-		}
-		return books;
+	public List<Book> selectClassicBooks() throws Exception {
+		return findBooks("pages", ClassicBook.class);
+		// TODO test filtering for all types.
 	}
 
 	public void addOrUpdate(Book b) {
@@ -92,16 +86,16 @@ public class Storage {
 		return findBooks("pdfilename", PdfBook.class);
 	}
 
-	private List<Book> findBooks(String fieldname, Class<? extends Book> c) 
+	private List<Book> findBooks(String fieldname, Class<? extends Book> clazz) 
 			throws PdfFileNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, 
 			InvocationTargetException, NoSuchMethodException, SecurityException 
 	{
 		Bson filter = Filters.exists(fieldname);
-		FindIterable<Document> temp = booksCollection.find(filter);
+		FindIterable<Document> docs = booksCollection.find(filter);
 		
 		LinkedList<Book> books = new LinkedList<Book>();
-		for (Document document : temp) {
-			Book book = c.getConstructor(Document.class).newInstance(document);
+		for (Document document : docs) {
+			Book book = clazz.getConstructor(Document.class).newInstance(document);
 			books.add(book);
 			System.out.println("found a doc: " + document.toString());
 		}
