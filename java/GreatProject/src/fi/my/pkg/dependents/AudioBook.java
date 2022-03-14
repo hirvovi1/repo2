@@ -14,8 +14,8 @@ public class AudioBook extends Book {
 		if (!soundFile.exists()) throw new IllegalArgumentException("file not found");
 	}
 	
-	public AudioBook(Document document) {
-		this(id(document), isbn(document), title(document), filename(document));
+	public AudioBook(Document doc) {
+		this(id(doc), isbn(doc), title(doc), filename(doc));
 	}
 
 	private static String filename(Document document) {
