@@ -8,7 +8,7 @@ public class PdfBook extends Book {
 
 	private final File pdfFile;
 
-	public PdfBook(int id, String isbn, String fileName, String title) 
+	public PdfBook(int id, String isbn, String title, String fileName) 
 			throws PdfFileNotFoundException 
 	{
 		super(id, isbn, title);
@@ -17,7 +17,7 @@ public class PdfBook extends Book {
 	}
 
 	public PdfBook(Document document) throws PdfFileNotFoundException {
-		this(id(document), isbn(document), filename(document), title(document));
+		this(id(document), isbn(document), title(document), filename(document));
 	}
 
 	private static String filename(Document document) {

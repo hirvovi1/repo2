@@ -79,7 +79,7 @@ public class BookServiceTest {
 	private void loadTestPdfBooks() throws IOException {
 		int id = 1;
 		for (String isbn : TestDataUtil.loadTestIsbnList()) {
-			robot.addBookToArchive(new PdfBook(id++, isbn, "test.pdf", "title"));
+			robot.addBookToArchive(new PdfBook(id++, isbn, "title", "test.pdf"));
 		}
 		Assertions.assertEquals(30, robot.archiveSize());
 	}
@@ -102,7 +102,7 @@ public class BookServiceTest {
 	private void addTestBooksWithTestIsbnList() throws IOException {
 		int id = 1;
 		for (String isbn : TestDataUtil.loadTestIsbnList()) {
-			robot.addBookToArchive(new PdfBook(id, isbn, "test.pdf", "title" + id));
+			robot.addBookToArchive(new PdfBook(id, isbn, "title" + id, "test.pdf"));
 			id++;
 		}
 	}

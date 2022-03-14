@@ -33,7 +33,7 @@ public class MongoDbTest {
 	}
 
 	@Test
-	public void testAddOrUpdate() {
+	public void testAddOrUpdate() throws Exception {
 		int id = 3;
 		ClassicBook b = new ClassicBook(id, "978-3-16-148410-0", "title");
 		TestDataUtil.createPages(b.getPages());
@@ -58,14 +58,14 @@ public class MongoDbTest {
 	@Test
 	void testSelectAll() throws Exception {
 		final int howMany = 80;
-		TestDataUtil.addBooks(howMany , storage);
+		TestDataUtil.addClassicBooks(howMany , storage);
 		Assertions.assertEquals(howMany, storage.selectClassicBooks().size());
 	}
 
 	@Test
 	void testAddPdfBook() throws Exception {
 		Id id = new Id(666);
-		storage.addOrUpdate(new PdfBook(id.asInt(), "978-3-16-148410-0", "test.pdf", "title"));
+		storage.addOrUpdate(new PdfBook(id.asInt(), "978-3-16-148410-0", "title", "test.pdf"));
 		List<Book> books = storage.selectPdfBooks();
 		Assertions.assertEquals(1, books.size());
 		Assertions.assertEquals("978-3-16-148410-0", books.get(0).getIsbn().getIsbn());
@@ -91,5 +91,16 @@ public class MongoDbTest {
 			storage.addOrUpdate(b);
 			System.out.println("saved: " + b.toString());
 		}
+	}
+	
+	@Test
+	void testSelectionFindsCorrectTypes() throws Exception {
+		TestDataUtil.addClassicBooks(3, storage);
+		TestDataUtil.addPdfBooks(5, storage);
+		TestDataUtil.addAudioBooks(7, storage);
+		
+		Assertions.assertEquals(3, storage.selectClassicBooks().size());
+		Assertions.assertEquals(5, storage.selectPdfBooks().size());
+		Assertions.assertEquals(7, storage.selectAudioBooks().size());
 	}
 }

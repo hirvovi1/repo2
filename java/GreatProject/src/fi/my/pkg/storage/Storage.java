@@ -60,7 +60,6 @@ public class Storage {
 
 	public List<Book> selectClassicBooks() throws Exception {
 		return findBooks("pages", ClassicBook.class);
-		// TODO test filtering for all types.
 	}
 
 	public void addOrUpdate(Book b) {
