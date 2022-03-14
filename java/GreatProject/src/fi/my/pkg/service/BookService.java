@@ -1,15 +1,17 @@
-package fi.my.pkg;
+package fi.my.pkg.service;
 
 import fi.my.pkg.dependents.Book;
 import fi.my.pkg.dependents.Id;
 import fi.my.pkg.dependents.Isbn;
 import fi.my.pkg.dependents.Title;
+import fi.my.pkg.storage.BookArchive;
+import fi.my.pkg.storage.Storage;
 
-public class BookRobot {
+public class BookService {
 	
 	private final BookArchive archive;
 
-	public BookRobot(Storage storage) {
+	public BookService(Storage storage) {
 		archive = new BookArchive(storage);
 	}
 

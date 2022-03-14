@@ -11,6 +11,7 @@ import fi.my.pkg.dependents.Book;
 import fi.my.pkg.dependents.ClassicBook;
 import fi.my.pkg.dependents.Id;
 import fi.my.pkg.dependents.PdfBook;
+import fi.my.pkg.storage.Storage;
 
 public class MongoDbTest {
 

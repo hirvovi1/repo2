@@ -1,4 +1,4 @@
-package fi.my.pkg;
+package fi.my.pkg.storage;
 
 import java.util.LinkedList;
 import java.util.List;

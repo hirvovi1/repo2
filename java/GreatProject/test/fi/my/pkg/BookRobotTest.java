@@ -19,6 +19,8 @@ import fi.my.pkg.dependents.Id;
 import fi.my.pkg.dependents.Isbn;
 import fi.my.pkg.dependents.PdfBook;
 import fi.my.pkg.dependents.Title;
+import fi.my.pkg.service.BookService;
+import fi.my.pkg.storage.Storage;
 
 @ExtendWith(MockitoExtension.class)
 public class BookRobotTest {
@@ -26,11 +28,11 @@ public class BookRobotTest {
 	@Mock
 	Storage mockStorage;
 
-	private BookRobot robot;
+	private BookService robot;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		robot = new BookRobot(mockStorage);
+		robot = new BookService(mockStorage);
 	}
 
 	@Test

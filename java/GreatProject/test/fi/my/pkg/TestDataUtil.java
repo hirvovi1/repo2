@@ -9,6 +9,8 @@ import java.util.List;
 
 import fi.my.pkg.dependents.ClassicBook;
 import fi.my.pkg.dependents.Page;
+import fi.my.pkg.service.BookService;
+import fi.my.pkg.storage.Storage;
 
 public class TestDataUtil {
 
@@ -24,7 +26,7 @@ public class TestDataUtil {
 		}
 	}
 
-	static ClassicBook addTestBookToArchive(BookRobot br) {
+	static ClassicBook addTestBookToArchive(BookService br) {
 		ClassicBook book = new ClassicBook(1, "q1222-3353-4363-234553", "title");
 		br.addBookToArchive(book);
 		addTestPages(book.getPages());
