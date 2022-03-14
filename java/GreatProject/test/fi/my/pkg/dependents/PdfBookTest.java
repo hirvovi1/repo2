@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import fi.my.pkg.dependents.PdfBook;
-
 class PdfBookTest {
 
 	PdfBook book;
@@ -24,17 +22,18 @@ class PdfBookTest {
 	}
 
 	@Test
-	final void testValidate() {
+	final void testValidate() throws PdfFileNotFoundException {
 		printCurrentDir();
 		new PdfBook(100, "978-3-16-148410-0", "test.pdf", "title");
 	}
 	
 	@Test
 	final void testValidateThrowsExceptionIfFileIsNotFound() {
-		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+		Assertions.assertThrows(PdfFileNotFoundException.class, () -> {
 			new PdfBook(100, "978-3-16-148410-0", "testEiOle.pdf", "title");
 		});
 	}
+	
 	
 	@Test
 	final void testValidateThrowsExceptionIfIsbnIsInvalid() {

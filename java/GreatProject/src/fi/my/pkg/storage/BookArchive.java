@@ -18,10 +18,11 @@ public class BookArchive {
 	private final LinkedList<Book> books = new LinkedList<Book>();
 	private final Storage storage;
 
-	public BookArchive(Storage storage) {
+	public BookArchive(Storage storage) throws Exception {
 		this.storage = storage;
 		addAll(storage.selectClassicBooks());
 		addAll(storage.selectPdfBooks());
+		addAll(storage.selectAudioBooks());
 	}
 
 	public void saveAll() {

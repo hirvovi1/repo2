@@ -7,9 +7,15 @@ import fi.my.pkg.storage.Storage;
 public class Main {
 
 	public static void main(String[] args) {
-		BookService br = new BookService(new Storage());
-		ClassicBook book = TestDataUtil.addTestBookToArchive(br);
-		book.printPages();
+		BookService br;
+		try {
+			br = new BookService(new Storage());
+			ClassicBook book =
+					TestDataUtil.addTestBookToArchive(br);
+			book.printPages();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

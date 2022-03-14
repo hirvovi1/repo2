@@ -17,17 +17,17 @@ public class AudioBook extends Book {
 	}
 	
 	public AudioBook(Document doc) throws SoundFileNotFoundException {
-		this(id(doc), isbn(doc), title(doc), filename(doc));
+		this(id(doc), isbn(doc), title(doc), audiofilename(doc));
 	}
 
-	private static String filename(Document document) {
-		return document.getString("filename");
+	private static String audiofilename(Document document) {
+		return document.getString("audiofilename");
 	}
 
 	@Override
 	public Document createDocument() {
 		Document d = super.createDocument();
-		d.append("filename", soundFile.getName());
+		d.append("audiofilename", soundFile.getName());
 		return d;
 	}
 	

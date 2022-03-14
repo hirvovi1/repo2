@@ -11,7 +11,7 @@ public class BookService {
 	
 	private final BookArchive archive;
 
-	public BookService(Storage storage) {
+	public BookService(Storage storage) throws Exception {
 		archive = new BookArchive(storage);
 	}
 
