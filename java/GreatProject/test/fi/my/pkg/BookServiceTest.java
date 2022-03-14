@@ -18,6 +18,7 @@ import fi.my.pkg.dependents.ClassicBook;
 import fi.my.pkg.dependents.Id;
 import fi.my.pkg.dependents.Isbn;
 import fi.my.pkg.dependents.PdfBook;
+import fi.my.pkg.dependents.SoundFileNotFoundException;
 import fi.my.pkg.dependents.Title;
 import fi.my.pkg.service.BookService;
 import fi.my.pkg.storage.Storage;
@@ -124,7 +125,7 @@ public class BookServiceTest {
 	
 	@Test
 	public final void testAddAudioToArchiveThrowsException() {
-		IllegalArgumentException e = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+		SoundFileNotFoundException e = Assertions.assertThrows(SoundFileNotFoundException.class, () -> {
 			robot.addBookToArchive(new AudioBook(1, "9789581054046", "title", ""));
 		});
 		Assertions.assertEquals("file not found", e.getMessage());

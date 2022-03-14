@@ -8,13 +8,15 @@ public class AudioBook extends Book {
 	
 	private File soundFile;
 
-	public AudioBook(int id, String isbn, String title, String fileName) {
+	public AudioBook(int id, String isbn, String title, String fileName) 
+			throws SoundFileNotFoundException 
+	{
 		super(id, isbn, title);
 		soundFile = new File(fileName);
-		if (!soundFile.exists()) throw new IllegalArgumentException("file not found");
+		if (!soundFile.exists()) throw new SoundFileNotFoundException("file not found");
 	}
 	
-	public AudioBook(Document doc) {
+	public AudioBook(Document doc) throws SoundFileNotFoundException {
 		this(id(doc), isbn(doc), title(doc), filename(doc));
 	}
 
