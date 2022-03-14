@@ -1,4 +1,4 @@
-package fi.my.pkg;
+package fi.my.pkg.service;
 
 import static org.mockito.Mockito.verify;
 
@@ -12,6 +12,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import fi.my.pkg.TestDataUtil;
 import fi.my.pkg.dependents.AudioBook;
 import fi.my.pkg.dependents.Book;
 import fi.my.pkg.dependents.ClassicBook;

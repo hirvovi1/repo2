@@ -18,13 +18,13 @@ import fi.my.pkg.storage.Storage;
 
 public class TestDataUtil {
 
-	static void createPages(List<Page> list) {
+	public static void createPages(List<Page> list) {
 		for (int i = 1; i <= 100; i++) {
 			list.add(new Page(i, Arrays.asList("line1", "line2", "line3")));
 		}
 	}
 
-	static void addClassicBooks(int howMany, Storage storage) {
+	public static void addClassicBooks(int howMany, Storage storage) {
 		for (int i = 1; i <= howMany; i++) {
 			ClassicBook book = new ClassicBook(i, "978-3-16-148410-0", "title");
 			createPages(book.getPages());
@@ -32,13 +32,13 @@ public class TestDataUtil {
 		}
 	}
 	
-	static void addPdfBooks(int howMany, Storage storage) throws PdfFileNotFoundException {
+	public static void addPdfBooks(int howMany, Storage storage) throws PdfFileNotFoundException {
 		for (int i = 1001; i <= 1000 + howMany; i++) {
 			storage.addOrUpdate(new PdfBook(i, "978-3-16-148410-0", "title", "test.pdf"));
 		}
 	}
 
-	static void addAudioBooks(int howMany, Storage storage) throws SoundFileNotFoundException {
+	public static void addAudioBooks(int howMany, Storage storage) throws SoundFileNotFoundException {
 		for (int i = 2001; i <= 2000 + howMany; i++) {
 			storage.addOrUpdate(new AudioBook(i, "978-3-16-148410-0", "title", "test.pdf"));
 		}
@@ -51,7 +51,7 @@ public class TestDataUtil {
 		return book;
 	}
 
-	static void addTestPages(List<Page> pages) {
+	public static void addTestPages(List<Page> pages) {
 		pages.add(new Page(1, getLines()));
 	}
 
@@ -64,7 +64,7 @@ public class TestDataUtil {
 		return lines;
 	}
 
-	static List<String> loadTestIsbnList() throws IOException{
+	public static List<String> loadTestIsbnList() throws IOException{
 		FileReader input = new FileReader("./test/testdata.txt");
 		BufferedReader reader = new BufferedReader(input);
 		List<String> list = new LinkedList<String>();

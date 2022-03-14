@@ -1,4 +1,4 @@
-package fi.my.pkg;
+package fi.my.pkg.storage;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import fi.my.pkg.TestDataUtil;
 import fi.my.pkg.dependents.Book;
 import fi.my.pkg.dependents.ClassicBook;
 import fi.my.pkg.dependents.Id;
