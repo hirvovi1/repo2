@@ -23,7 +23,7 @@ import fi.my.pkg.service.BookService;
 import fi.my.pkg.storage.Storage;
 
 @ExtendWith(MockitoExtension.class)
-public class BookRobotTest {
+public class BookServiceTest {
 
 	@Mock
 	Storage mockStorage;

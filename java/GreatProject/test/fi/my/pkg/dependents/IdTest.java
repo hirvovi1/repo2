@@ -1,4 +1,4 @@
-package fi.my.pkg;
+package fi.my.pkg.dependents;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
