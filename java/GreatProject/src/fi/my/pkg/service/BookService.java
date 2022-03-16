@@ -43,7 +43,7 @@ public class BookService {
 		return archive.size();
 	}
 
-	public void delete(Id id) {
+	public void delete(Isbn id) {
 		archive.delete(id);
 	}
 	

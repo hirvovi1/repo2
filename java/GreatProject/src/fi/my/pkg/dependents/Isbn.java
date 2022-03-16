@@ -1,11 +1,20 @@
 package fi.my.pkg.dependents;
 
+import org.apache.commons.validator.routines.ISBNValidator;
+
 public class Isbn {
-	
+
 	private final String isbn;
 
 	public Isbn(String isbn) {
 		this.isbn = isbn;
+		validate();
+	}
+
+	private void validate() {
+		if (!new ISBNValidator().isValid(isbn)) {
+			throw new IllegalArgumentException("invalid isbn " + isbn);
+		}
 	}
 
 	public String getIsbn() {

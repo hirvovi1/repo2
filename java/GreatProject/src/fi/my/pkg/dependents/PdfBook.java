@@ -8,7 +8,15 @@ public class PdfBook extends Book {
 
 	private final File pdfFile;
 
-	public PdfBook(int id, String isbn, String title, String fileName) 
+	public PdfBook(String isbn, String title, String fileName) 
+			throws PdfFileNotFoundException 
+	{
+		super(isbn, title);
+		pdfFile = new File(fileName);
+		if (!pdfFile.exists()) throw new PdfFileNotFoundException("file not found");
+	}
+	
+	private PdfBook(int id, String isbn, String title, String fileName) 
 			throws PdfFileNotFoundException 
 	{
 		super(id, isbn, title);
@@ -29,8 +37,8 @@ public class PdfBook extends Book {
 	}
 
 	@Override
-	public Document createDocument() {
-		Document d = super.createDocument();
+	public Document createDocument(String id) {
+		Document d = super.createDocument(id);
 		d.append("pdfilename", pdfFile.getName());
 		return d;
 	}

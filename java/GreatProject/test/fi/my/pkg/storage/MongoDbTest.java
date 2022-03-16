@@ -10,9 +10,8 @@ import org.junit.jupiter.api.Test;
 import fi.my.pkg.TestDataUtil;
 import fi.my.pkg.dependents.Book;
 import fi.my.pkg.dependents.ClassicBook;
-import fi.my.pkg.dependents.Id;
+import fi.my.pkg.dependents.Isbn;
 import fi.my.pkg.dependents.PdfBook;
-import fi.my.pkg.storage.Storage;
 
 public class MongoDbTest {
 
@@ -35,23 +34,21 @@ public class MongoDbTest {
 
 	@Test
 	public void testAddOrUpdate() throws Exception {
-		int id = 3;
-		ClassicBook b = new ClassicBook(id, "978-3-16-148410-0", "title");
+		ClassicBook b = new ClassicBook("978-3-16-148410-0", "title");
 		TestDataUtil.createPages(b.getPages());
 		storage.addOrUpdate(b);
 		List<Book> books = storage.selectClassicBooks();
 		Assertions.assertNotNull(books);
 		Assertions.assertEquals(1, books.size());
-		Assertions.assertEquals(id, books.get(0).getId().asLong());
 	}
 
 	@Test
 	void testDelete() throws Exception {
-		Id id = new Id(666);
-		storage.addOrUpdate(new ClassicBook(id.asInt(), "978-3-16-148410-0", "title"));
+		String isbn = "978-3-16-148410-0";
+		storage.addOrUpdate(new ClassicBook(isbn , "title"));
 		List<Book> books = storage.selectClassicBooks();
 		Assertions.assertEquals(1, books.size());
-		storage.delete(id);
+		storage.delete(new Isbn(isbn));
 		books = storage.selectClassicBooks();
 		Assertions.assertEquals(0, books.size());
 	}
@@ -65,12 +62,12 @@ public class MongoDbTest {
 
 	@Test
 	void testAddPdfBook() throws Exception {
-		Id id = new Id(666);
-		storage.addOrUpdate(new PdfBook(id.asInt(), "978-3-16-148410-0", "title", "test.pdf"));
+		storage.addOrUpdate(new PdfBook("978-3-16-148410-0", "title", "test.pdf"));
 		List<Book> books = storage.selectPdfBooks();
 		Assertions.assertEquals(1, books.size());
-		Assertions.assertEquals("978-3-16-148410-0", books.get(0).getIsbn().getIsbn());
-		storage.delete(id);
+		Isbn isbn = books.get(0).getIsbn();
+		Assertions.assertEquals("978-3-16-148410-0", isbn.getIsbn());
+		storage.delete(isbn);
 		books = storage.selectClassicBooks();
 		Assertions.assertEquals(0, books.size());
 		books = storage.selectPdfBooks();
@@ -81,13 +78,16 @@ public class MongoDbTest {
 	void testAdditions() throws Exception {
 		List<String> isbnList = TestDataUtil.loadTestIsbnList();
 		saveBooks(isbnList);
-		saveBooks(isbnList);
+		List<Book> books = storage.selectClassicBooks();
+		for (Book book : books) {
+			System.out.println(book.toString());
+			Assertions.assertNotNull(book.getId());
+		}
 	}
 
 	private void saveBooks(List<String> isbnList) {
-		int id = 1;
 		for (String isbn : isbnList) {
-			ClassicBook b = new ClassicBook(id++, isbn, "title");
+			ClassicBook b = new ClassicBook(isbn, "title");
 			TestDataUtil.addTestPages(b.getPages());
 			storage.addOrUpdate(b);
 			System.out.println("saved: " + b.toString());

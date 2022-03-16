@@ -26,7 +26,7 @@ public class TestDataUtil {
 
 	public static void addClassicBooks(int howMany, Storage storage) {
 		for (int i = 1; i <= howMany; i++) {
-			ClassicBook book = new ClassicBook(i, "978-3-16-148410-0", "title");
+			ClassicBook book = new ClassicBook("978-3-16-148410-0", "title");
 			createPages(book.getPages());
 			storage.addOrUpdate(book);
 		}
@@ -34,18 +34,18 @@ public class TestDataUtil {
 	
 	public static void addPdfBooks(int howMany, Storage storage) throws PdfFileNotFoundException {
 		for (int i = 1001; i <= 1000 + howMany; i++) {
-			storage.addOrUpdate(new PdfBook(i, "978-3-16-148410-0", "title", "test.pdf"));
+			storage.addOrUpdate(new PdfBook( "978-3-16-148410-0", "title", "test.pdf"));
 		}
 	}
 
 	public static void addAudioBooks(int howMany, Storage storage) throws SoundFileNotFoundException {
 		for (int i = 2001; i <= 2000 + howMany; i++) {
-			storage.addOrUpdate(new AudioBook(i, "978-3-16-148410-0", "title", "test.pdf"));
+			storage.addOrUpdate(new AudioBook( "978-3-16-148410-0", "title", "test.pdf"));
 		}
 	}
 
 	static ClassicBook addTestBookToArchive(BookService br) {
-		ClassicBook book = new ClassicBook(1, "q1222-3353-4363-234553", "title");
+		ClassicBook book = new ClassicBook("q1222-3353-4363-234553", "title");
 		br.addBookToArchive(book);
 		addTestPages(book.getPages());
 		return book;

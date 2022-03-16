@@ -38,8 +38,8 @@ public class Import {
 			throws Exception 
 	{
 		Constructor<? extends Book> constr = 
-			clazz.getConstructor(int.class, String.class, String.class, String.class);
-		return constr.newInstance(id, isbn, title , file.getCanonicalPath());
+			clazz.getConstructor(String.class, String.class, String.class);
+		return constr.newInstance(isbn, title , file.getCanonicalPath());
 	}
 
 	private String getIsbnFromFileName(File file) {

@@ -6,6 +6,17 @@ public class Title {
 	
 	public Title(String title) {
 		this.title = title;
+		validate();
+	}
+
+	private void validate() {
+		if (!isValid()) {
+			throw new IllegalArgumentException("invalid title");
+		}
+	}
+
+	private boolean isValid() {
+		return !title.isBlank();
 	}
 
 	public String getTitle() {

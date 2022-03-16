@@ -105,8 +105,8 @@ public class BookArchive {
 		}
 	}
 
-	public void delete(Id id) {
-		Book book = find(id);
+	public void delete(Isbn isbn) {
+		Book book = find(isbn);
 		books.remove(book);
 		removeFromMaps(book);
 	}

@@ -28,7 +28,7 @@ class AudioBookTest {
 	@Test
 	final void testNewAudiobookWithCrapWillThrowException() {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {
-			new AudioBook(1,"", "", null);
+			new AudioBook("", "", null);
 		});
 	}
 

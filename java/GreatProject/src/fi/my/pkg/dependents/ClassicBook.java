@@ -9,17 +9,17 @@ public class ClassicBook extends Book {
 
 	private final List<Page> pages = new LinkedList<Page>();
 	
+	public ClassicBook(String isbn, String title) {
+		super(isbn, title);
+	}
+
 	public ClassicBook(Document document) {
 		super(id(document), isbn(document), title(document));
 	}
-
-	public ClassicBook(int id, String isbn, String title) {
-		super(id, isbn, title);
-	}
-
+	
 	@Override
-	public Document createDocument() {
-		Document d = super.createDocument();
+	public Document createDocument(String id) {
+		Document d = super.createDocument(id);
 		d.append("pages", createPagesToDocument());
 		return d;
 	}

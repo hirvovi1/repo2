@@ -7,8 +7,16 @@ import org.bson.Document;
 public class AudioBook extends Book {
 	
 	private File soundFile;
-
-	public AudioBook(int id, String isbn, String title, String fileName) 
+	
+	public AudioBook(String isbn, String title, String fileName) 
+			throws SoundFileNotFoundException 
+	{
+		super(isbn, title);
+		soundFile = new File(fileName);
+		if (!soundFile.exists()) throw new SoundFileNotFoundException("file not found");
+	}
+	
+	private AudioBook(int id, String isbn, String title, String fileName) 
 			throws SoundFileNotFoundException 
 	{
 		super(id, isbn, title);
@@ -25,8 +33,8 @@ public class AudioBook extends Book {
 	}
 
 	@Override
-	public Document createDocument() {
-		Document d = super.createDocument();
+	public Document createDocument(String id) {
+		Document d = super.createDocument(id);
 		d.append("audiofilename", soundFile.getName());
 		return d;
 	}

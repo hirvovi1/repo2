@@ -14,6 +14,10 @@ public class Id {
 	public long asLong() {
 		return id.longValue();
 	}
+	
+	public String asString() {
+		return id.toString();
+	}
 
 	@Override
 	public boolean equals(Object obj) {

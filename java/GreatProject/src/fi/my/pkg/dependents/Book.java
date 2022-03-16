@@ -8,6 +8,12 @@ public class Book implements Item {
 	private final Isbn isbn;
 	protected Title title;
 	
+	protected Book(String isbn, String title) {
+		this.id = null;
+		this.isbn = new Isbn(isbn);
+		this.title = new Title(title);
+	}
+	
 	protected Book(int id, String isbn, String title) {
 		this.id = new Id(id);
 		this.isbn = new Isbn(isbn);
@@ -27,12 +33,11 @@ public class Book implements Item {
 		if (id == null) throw new IllegalArgumentException("invalid id");
 		if (id.asLong() < 1) throw new IllegalArgumentException("invalid id " + id);
 		if (!isValidISBN()) throw new IllegalArgumentException("invalid isbn " + isbn);
-		if (title == null) throw new IllegalArgumentException("invalid title");
 	}
 	
-	public Document createDocument() {
+	public Document createDocument(String id) {
 		Document d = new Document();
-		d.append("id", id.toString()).append("isbn", isbn.getIsbn()).append("title", title.getTitle());
+		d.append("id", id).append("isbn", isbn.getIsbn()).append("title", title.getTitle());
 		return d;
 	}
 
