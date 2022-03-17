@@ -53,6 +53,7 @@ public class Storage {
 		MongoDatabase database = mongoClient.getDatabase(dbName);
 		booksCollection = database.getCollection("books");
 		idCollection = database.getCollection("ids");
+		IdUtil.INSTANCE.set(this);
 	}
 
 	public void disconnect() {
@@ -84,26 +85,15 @@ public class Storage {
 	}
 
 	private int nextId() {
-		int id = previousId() + 1;
-		Document update = new Document();
-		update.put("id", id);
-		ReplaceOptions options = new ReplaceOptions().upsert(true);
-		UpdateResult status = idCollection.replaceOne(Filters.empty(), update, options);
-		System.out.println("nextId: " + status);
-		return id;
-	}
-
-	private int previousId() {
-		final Document first = idCollection.find().first();
-
-		if (first == null) {
-			return 1;
-		}
-		return first.getInteger("id");
+		return IdUtil.INSTANCE.next();
 	}
 
 	public void delete(Isbn isbn) {
 		booksCollection.deleteOne(createIsbnFilter(isbn));
+	}
+	
+	public void delete(Id id) {
+		booksCollection.deleteOne(createIdFilter(id));
 	}
 
 	private Bson createIsbnFilter(Isbn isbn) {
@@ -112,6 +102,7 @@ public class Storage {
 
 	public void deleteAll() {
 		booksCollection.deleteMany(Filters.empty());
+		idCollection.deleteMany(Filters.empty());
 	}
 
 	public List<Book> selectPdfBooks() throws Exception {
@@ -135,6 +126,22 @@ public class Storage {
 
 	public List<Book> selectAudioBooks() throws Exception {
 		return findBooks("audiofilename", AudioBook.class);
+	}
+
+	public int getId() {
+		final Document first = idCollection.find().first();
+		if (first == null) {
+			return 0;
+		}
+		return first.getInteger("id");
+	}
+
+	public void saveId(int id) {
+		Document update = new Document();
+		update.put("id", id);
+		ReplaceOptions options = new ReplaceOptions().upsert(true);
+		UpdateResult status = idCollection.replaceOne(Filters.empty(), update, options);
+		System.out.println("saveId: " + status);
 	}
 
 }

@@ -13,7 +13,7 @@ import fi.my.pkg.dependents.ClassicBook;
 import fi.my.pkg.dependents.Isbn;
 import fi.my.pkg.dependents.PdfBook;
 
-public class MongoDbTest {
+public class StorageTest {
 
 	private Storage storage;
 	
@@ -25,6 +25,7 @@ public class MongoDbTest {
 		storage.deleteAll();
 		Assertions.assertTrue(storage.selectClassicBooks().isEmpty());
 		Assertions.assertTrue(storage.selectPdfBooks().isEmpty());
+		Assertions.assertTrue(storage.selectAudioBooks().isEmpty());
 	}
 
 	@AfterEach
@@ -103,5 +104,16 @@ public class MongoDbTest {
 		Assertions.assertEquals(3, storage.selectClassicBooks().size());
 		Assertions.assertEquals(5, storage.selectPdfBooks().size());
 		Assertions.assertEquals(7, storage.selectAudioBooks().size());
+	}
+	
+	@Test
+	void testloadId() throws Exception {
+		IdUtil.INSTANCE.set(storage);
+		int id = IdUtil.INSTANCE.next();
+		Assertions.assertEquals(1, id);
+		for (int i = 2; i <= 180; i++) {
+			id = IdUtil.INSTANCE.next();
+			Assertions.assertEquals(i, id);
+		}
 	}
 }
