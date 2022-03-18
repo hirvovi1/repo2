@@ -20,7 +20,7 @@ public class StorageTest {
 	@BeforeEach
 	public void setUp() throws Exception {
 		storage = new Storage(
-				"mongodb+srv://user:fuckoff@cluster0.ep9st.mongodb.net/myFirstDatabase?"
+				"mongodb+srv://user:8767224Leskinen@cluster0.ep9st.mongodb.net/myFirstDatabase?"
 				+ "retryWrites=true&w=majority", "testdb");
 		storage.deleteAll();
 		Assertions.assertTrue(storage.selectClassicBooks().isEmpty());
