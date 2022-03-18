@@ -115,5 +115,8 @@ public class StorageTest {
 			id = IdUtil.INSTANCE.next();
 			Assertions.assertEquals(i, id);
 		}
+		IdUtil.INSTANCE.reset();
+		id = IdUtil.INSTANCE.next();
+		Assertions.assertEquals(201, id);
 	}
 }
