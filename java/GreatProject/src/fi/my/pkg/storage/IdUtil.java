@@ -10,7 +10,7 @@ public enum IdUtil {
 	private IdUtil(){
 	}
 	
-	int next() {
+	synchronized int next() {
 		if (id == 0) {
 			id = load();
 			System.out.println("load " + id);
