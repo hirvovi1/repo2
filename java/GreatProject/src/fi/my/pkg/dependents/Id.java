@@ -1,28 +1,20 @@
 package fi.my.pkg.dependents;
 
 public class Id {
-	private Long id;
+	private Integer id;
 
-	public Id(long id) {
-		this.id = Long.valueOf(id);
+	public Id(int id) {
+		this.id = Integer.valueOf(id);
 	}
 
 	public Id(String string) {
-		this.id = Long.parseLong(string);
-	}
-
-	public long asLong() {
-		return id.longValue();
-	}
-	
-	public String asString() {
-		return id.toString();
+		this.id = Integer.parseInt(string);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Id)) return false;
-		return ((Id) obj).asLong() == id;
+		return ((Id) obj).asInt() == id;
 	}
 
 	@Override

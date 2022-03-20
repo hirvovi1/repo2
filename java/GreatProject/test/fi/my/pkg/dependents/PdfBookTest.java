@@ -14,7 +14,7 @@ class PdfBookTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		this.book = new PdfBook( "978-3-16-148410-0", "title", "test.pdf");
+		this.book = new PdfBook( "978-3-16-148410-0", "title", "test/test.pdf");
 	}
 
 	@AfterEach
@@ -24,7 +24,7 @@ class PdfBookTest {
 	@Test
 	final void testValidate() throws PdfFileNotFoundException {
 		printCurrentDir();
-		new PdfBook("978-3-16-148410-0", "title", "test.pdf");
+		new PdfBook("978-3-16-148410-0", "title", "test/test.pdf");
 	}
 	
 	@Test
@@ -38,7 +38,7 @@ class PdfBookTest {
 	@Test
 	final void testValidateThrowsExceptionIfIsbnIsInvalid() {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {
-			new PdfBook("978-3-16-148410-", "title", "test.pdf");
+			new PdfBook("978-3-16-148410-", "title", "test/test.pdf");
 		});
 	}
 
@@ -50,7 +50,7 @@ class PdfBookTest {
 	@Test
 	final void testCreateDocument() {
 		Document d = book.createDocument("999");
-		Assertions.assertEquals(d.get("pdfilename"), "test.pdf");
+		Assertions.assertEquals(d.get("pdfilename"), "test/test.pdf");
 	}
 
 	@Test

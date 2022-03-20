@@ -21,7 +21,7 @@ public class PdfBook extends Book {
 	{
 		super(id, isbn, title);
 		pdfFile = new File(fileName);
-		if (!pdfFile.exists()) throw new PdfFileNotFoundException("file not found");
+		if (!pdfFile.exists()) throw new PdfFileNotFoundException("file not found: " + fileName);
 	}
 
 	public PdfBook(Document document) throws PdfFileNotFoundException {
@@ -39,7 +39,7 @@ public class PdfBook extends Book {
 	@Override
 	public Document createDocument(String id) {
 		Document d = super.createDocument(id);
-		d.append("pdfilename", pdfFile.getName());
+		d.append("pdfilename", pdfFile.getPath());
 		return d;
 	}
 

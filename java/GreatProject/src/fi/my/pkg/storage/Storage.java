@@ -67,7 +67,7 @@ public class Storage {
 	public void addOrUpdate(Book b) {
 		Id id = createIdIfNecessary(b.getId());
 		Bson filter = createIdFilter(id);
-		Document update = b.createDocument(id.asString());
+		Document update = b.createDocument(id.toString());
 		ReplaceOptions options = new ReplaceOptions().upsert(true);
 		UpdateResult status = booksCollection.replaceOne(filter, update, options);
 		System.out.println("addOrUpdate status: " + status);

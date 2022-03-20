@@ -63,7 +63,7 @@ public class StorageTest {
 
 	@Test
 	void testAddPdfBook() throws Exception {
-		storage.addOrUpdate(new PdfBook("978-3-16-148410-0", "title", "test.pdf"));
+		storage.addOrUpdate(new PdfBook("978-3-16-148410-0", "title", "test/test.pdf"));
 		List<Book> books = storage.selectPdfBooks();
 		Assertions.assertEquals(1, books.size());
 		Isbn isbn = books.get(0).getIsbn();
