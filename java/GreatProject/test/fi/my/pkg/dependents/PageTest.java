@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import fi.my.pkg.TestDataUtil;
-import fi.my.pkg.dependents.Page;
 
 class PageTest {
 

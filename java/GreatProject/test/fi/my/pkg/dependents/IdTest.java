@@ -7,8 +7,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import fi.my.pkg.dependents.Id;
-
 class IdTest {
 
 	@BeforeAll
@@ -37,6 +35,7 @@ class IdTest {
 			Assertions.assertTrue(new Id(1).equals(new Id(1)));
 	}
 	
+	@SuppressWarnings("unlikely-arg-type")
 	@Test
 	final void testIdEqualsNotWrongType() {
 			Assertions.assertFalse(new Id(1).equals(Integer.valueOf(1)));

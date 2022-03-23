@@ -76,7 +76,6 @@ public class BookServiceTest {
 	}
 
 	private void loadTestPdfBooks() throws IOException {
-		int id = 1;
 		for (String isbn : TestDataUtil.loadTestIsbnList()) {
 			robot.addBookToArchive(new PdfBook(isbn, "title", "test/test.pdf"));
 		}
@@ -86,7 +85,6 @@ public class BookServiceTest {
 	private void assertBookIsFound(Isbn isbnToFind, Book found) {
 		Assertions.assertNotNull(found);
 		Assertions.assertEquals(found.getIsbn(), isbnToFind);
-//		Assertions.assertEquals(found.getId(), idToFind);
 	}
 	
 	@Test

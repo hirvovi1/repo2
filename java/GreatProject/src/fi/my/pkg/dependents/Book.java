@@ -12,6 +12,7 @@ public class Book implements Item {
 		this.id = null;
 		this.isbn = new Isbn(isbn);
 		this.title = new Title(title);
+		System.out.println("new Book " + toString());
 	}
 	
 	protected Book(int id, String isbn, String title) {
@@ -47,7 +48,7 @@ public class Book implements Item {
 
 	@Override
 	public String toString() {
-		return "id: " + id + " isbn: " + isbn;
+		return "id: " + id + " isbn: " + isbn + " title: " + title;
 	}
 
 	@Override
@@ -58,6 +59,7 @@ public class Book implements Item {
 	private boolean isValidISBN() {
 		return new ISBNValidator().isValid(isbn.getIsbn());
 	}
+	
 	protected static String title(Document document) {
 		return document.get("title", String.class);
 	}

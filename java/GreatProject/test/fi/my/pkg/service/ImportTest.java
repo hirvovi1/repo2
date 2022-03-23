@@ -43,6 +43,7 @@ class ImportTest {
 	private void assertPdfBookFieldsMatch(PdfBook pbook) {
 		Assertions.assertEquals(pbook.getIsbn().getIsbn(), "978-3-16-148410-0");
 		Assertions.assertEquals(pbook.getPdfFile().getName(), "978-3-16-148410-0.pdf");
+		Assertions.assertEquals(pbook.getTitle().getTitle(), "The Historical and International Foundations of the Socialist Equality Party (Britain).");
 	}
 	
 	@Test
@@ -56,6 +57,7 @@ class ImportTest {
 	private void assertAudioBookFieldsMatch(AudioBook pbook) {
 		Assertions.assertEquals(pbook.getIsbn().getIsbn(), "978-3-16-148410-0");
 		Assertions.assertEquals(pbook.getSoundFile().getName(), "978-3-16-148410-0.mp3");
+		Assertions.assertEquals(pbook.getTitle().getTitle(), "The Historical and International Foundations of the Socialist Equality Party (Britain).");
 	}
 
 }
