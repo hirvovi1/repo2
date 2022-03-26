@@ -33,8 +33,8 @@ public class AudioBook extends Book {
 	}
 
 	@Override
-	public Document createDocument(String id) {
-		Document d = super.createDocument(id);
+	public Document createDocument() {
+		Document d = super.createDocument();
 		d.append("audiofilename", soundFile.getPath());
 		return d;
 	}

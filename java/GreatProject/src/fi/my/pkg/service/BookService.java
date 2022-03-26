@@ -47,4 +47,11 @@ public class BookService {
 		archive.delete(id);
 	}
 	
+	public void importBooks() throws Exception {
+		final Import bookImport = new Import();
+		archive.addAll(bookImport.importAudioBooks());
+		archive.addAll(bookImport.importPdfBooks());
+		archive.saveAll();
+	}
+	
 }

@@ -80,7 +80,7 @@ public class BookArchive {
 		}
 	}
 
-	private void addAll(Collection<Book> itemsToAdd) {
+	public void addAll(Collection<Book> itemsToAdd) {
 		books.addAll(itemsToAdd);
 	}
 

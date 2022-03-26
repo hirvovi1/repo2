@@ -49,7 +49,7 @@ class PdfBookTest {
 
 	@Test
 	final void testCreateDocument() {
-		Document d = book.createDocument("999");
+		Document d = book.createDocument();
 		Assertions.assertEquals(d.get("pdfilename"), "test/test.pdf");
 	}
 

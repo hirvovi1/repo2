@@ -1,6 +1,11 @@
 package fi.my.pkg.storage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -19,13 +24,30 @@ public class StorageTest {
 	
 	@BeforeEach
 	public void setUp() throws Exception {
-		storage = new Storage(
-				"mongodb+srv://user:8767224Leskinen@cluster0.ep9st.mongodb.net/myFirstDatabase?"
-				+ "retryWrites=true&w=majority", "testdb");
+		String connectionString = "mongodb+srv://user:8767224Leskinen@cluster0.ep9st.mongodb.net/myFirstDatabase?"
+				+ "retryWrites=true&w=majority";
+		try { 
+			String localDbIsUsed = (String) loadProperties().get("LOCAL_DB");
+			if ("true".equals(localDbIsUsed)) {
+				connectionString =
+					"mongodb://127.0.0.1/myFirstDatabase?retryWrites=false&w=majority";
+				System.out.println("LOCAL DB IS USED *** ");
+				System.out.println("connectionString: " + connectionString);
+			}
+		} catch (IOException e) {
+		}
+		storage = new Storage(connectionString, "testdb");
 		storage.deleteAll();
 		Assertions.assertTrue(storage.selectClassicBooks().isEmpty());
 		Assertions.assertTrue(storage.selectPdfBooks().isEmpty());
 		Assertions.assertTrue(storage.selectAudioBooks().isEmpty());
+	}
+
+	private Properties loadProperties() throws FileNotFoundException, IOException {
+		FileReader reader = new FileReader(new File("./test/testconfig.properties"));
+		Properties p = new Properties();//                  testconfig.properties
+		p.load(reader);
+		return p;
 	}
 
 	@AfterEach

@@ -4,7 +4,7 @@ import org.apache.commons.validator.routines.ISBNValidator;
 import org.bson.Document;
 
 public class Book implements Item {
-	private final Id id;
+	private Id id;
 	private final Isbn isbn;
 	protected Title title;
 	
@@ -22,6 +22,10 @@ public class Book implements Item {
 		validate();
 	}
 
+	public void setId(Id id) {
+		this.id = id;
+	}
+	
 	protected static int id(Document document) {
 		return Integer.parseInt(document.get("id", String.class));
 	}
@@ -39,6 +43,12 @@ public class Book implements Item {
 	public Document createDocument(String id) {
 		Document d = new Document();
 		d.append("id", id).append("isbn", isbn.getIsbn()).append("title", title.getTitle());
+		return d;
+	}
+	
+	public Document createDocument() {
+		Document d = new Document();
+		d.append("id", id.toString()).append("isbn", isbn.getIsbn()).append("title", title.getTitle());
 		return d;
 	}
 
