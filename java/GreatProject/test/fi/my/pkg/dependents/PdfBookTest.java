@@ -22,21 +22,20 @@ class PdfBookTest {
 	}
 
 	@Test
-	final void testValidate() throws PdfFileNotFoundException {
+	void testValidate() throws PdfFileNotFoundException {
 		printCurrentDir();
 		new PdfBook("978-3-16-148410-0", "title", "test/test.pdf");
 	}
 	
 	@Test
-	final void testValidateThrowsExceptionIfFileIsNotFound() {
+	void testValidateThrowsExceptionIfFileIsNotFound() {
 		Assertions.assertThrows(PdfFileNotFoundException.class, () -> {
 			new PdfBook("978-3-16-148410-0", "title", "testEiOle.pdf");
 		});
 	}
 	
-	
 	@Test
-	final void testValidateThrowsExceptionIfIsbnIsInvalid() {
+	void testValidateThrowsExceptionIfIsbnIsInvalid() {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {
 			new PdfBook("978-3-16-148410-", "title", "test/test.pdf");
 		});
@@ -48,13 +47,13 @@ class PdfBookTest {
 	}
 
 	@Test
-	final void testCreateDocument() {
+	void testCreateDocument() {
 		Document d = book.createDocument();
 		Assertions.assertEquals(d.get("pdfilename"), "test/test.pdf");
 	}
 
 	@Test
-	final void testGetPdfFile() {
+	void testGetPdfFile() {
 		File file = book.getPdfFile();
 		Assertions.assertTrue(file.exists());
 	}

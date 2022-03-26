@@ -34,15 +34,15 @@ class ImportTest {
 	@Test
 	final void testPdfImportCreatesPdfBook() throws Exception {
 		List<Book> books = new Import().importPdfBooks();
-		Assertions.assertEquals(1, books.size());
+		Assertions.assertEquals(31, books.size());
 		Book book = books.get(0);
 		Assertions.assertTrue(book instanceof PdfBook);
 		assertPdfBookFieldsMatch((PdfBook) book);
 	}
 
 	private void assertPdfBookFieldsMatch(PdfBook pbook) {
-		Assertions.assertEquals(pbook.getIsbn().getIsbn(), "978-3-16-148410-0");
-		Assertions.assertEquals(pbook.getPdfFile().getName(), "978-3-16-148410-0.pdf");
+		Assertions.assertEquals(pbook.getIsbn().getIsbn(), "9789894808169");
+		Assertions.assertEquals(pbook.getPdfFile().getName(), "9789894808169.pdf");
 	}
 	
 	@Test
