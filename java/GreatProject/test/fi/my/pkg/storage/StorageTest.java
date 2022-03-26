@@ -24,7 +24,17 @@ public class StorageTest {
 	
 	@BeforeEach
 	public void setUp() throws Exception {
-		String connectionString = "mongodb+srv://user:8767224Leskinen@cluster0.ep9st.mongodb.net/myFirstDatabase?"
+		String connectionString = createConnectionString();
+		storage = new Storage(connectionString, "testdb");
+		storage.deleteAll();
+		Assertions.assertTrue(storage.selectClassicBooks().isEmpty());
+		Assertions.assertTrue(storage.selectPdfBooks().isEmpty());
+		Assertions.assertTrue(storage.selectAudioBooks().isEmpty());
+	}
+
+	private String createConnectionString() {
+		String connectionString = 
+				"mongodb+srv://user:8767224Leskinen@cluster0.ep9st.mongodb.net/myFirstDatabase?"
 				+ "retryWrites=true&w=majority";
 		try { 
 			String localDbIsUsed = (String) loadProperties().get("LOCAL_DB");
@@ -36,17 +46,12 @@ public class StorageTest {
 			}
 		} catch (IOException e) {
 		}
-		storage = new Storage(connectionString, "testdb");
-		storage.deleteAll();
-		Assertions.assertTrue(storage.selectClassicBooks().isEmpty());
-		Assertions.assertTrue(storage.selectPdfBooks().isEmpty());
-		Assertions.assertTrue(storage.selectAudioBooks().isEmpty());
+		return connectionString;
 	}
 
 	private Properties loadProperties() throws FileNotFoundException, IOException {
-		FileReader reader = new FileReader(new File("./test/testconfig.properties"));
-		Properties p = new Properties();//                  testconfig.properties
-		p.load(reader);
+		Properties p = new Properties();
+		p.load(new FileReader(new File("./test/testconfig.properties")));
 		return p;
 	}
 

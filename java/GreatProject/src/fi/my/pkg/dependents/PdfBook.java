@@ -16,7 +16,7 @@ public class PdfBook extends Book {
 		if (!pdfFile.exists()) throw new PdfFileNotFoundException("file not found");
 	}
 	
-	private PdfBook(int id, String isbn, String title, String fileName) 
+	PdfBook(int id, String isbn, String title, String fileName) 
 			throws PdfFileNotFoundException 
 	{
 		super(id, isbn, title);

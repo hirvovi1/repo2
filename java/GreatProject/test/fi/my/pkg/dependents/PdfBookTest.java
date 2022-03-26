@@ -14,7 +14,7 @@ class PdfBookTest {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		this.book = new PdfBook( "978-3-16-148410-0", "title", "test/test.pdf");
+		this.book = new PdfBook(1, "978-3-16-148410-0", "title", "test/test.pdf");
 	}
 
 	@AfterEach
