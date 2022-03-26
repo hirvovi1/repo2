@@ -30,7 +30,7 @@ public class Import {
 	}
 
 	private String getTitle(String isbn) {
-		return "title";
+		return new Bison().getTitle(isbn);
 	}
 
 	private Book createBook(Class<? extends Book> clazz, String isbn, String title, File file) throws Exception {
