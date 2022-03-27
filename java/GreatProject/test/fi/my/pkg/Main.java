@@ -11,13 +11,14 @@ public class Main {
 	public static void main(String[] args) {
 		new Main();
 	}
-	
+
 	public Main() {
 		BookService br;
 		try {
 			createTestFilesForImport();
 			br = new BookService(new Storage());
 			br.importBooks();
+			System.out.println("books in arcive: " + br.archiveSize());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
