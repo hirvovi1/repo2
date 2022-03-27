@@ -30,9 +30,8 @@ class BisonTest {
 
 	@Test
 	void testTitle() throws Exception {
-		String title = bison.getTitle("isbn2");
-		Assertions.assertEquals(title, "title2");
+		String title = bison.getTitle("9792149925986");
+		Assertions.assertEquals(title, "The Torrents of Spring");
 	}
-
 	
 }
