@@ -7,8 +7,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,19 +22,31 @@ import fi.my.pkg.dependents.PdfBook;
 
 public class StorageTest {
 
-	private Storage storage;
+	private static Storage storage;
+	
+	@BeforeAll
+	static void setUpBeforeClass() throws Exception {
+		storage = new Storage(createConnectionString(), "testdb");
+	}
+
+	@AfterAll
+	static void tearDownAfterClass() throws Exception {
+		storage.disconnect();
+	}
 	
 	@BeforeEach
 	public void setUp() throws Exception {
-		String connectionString = createConnectionString();
-		storage = new Storage(connectionString, "testdb");
 		storage.deleteAll();
 		Assertions.assertTrue(storage.selectClassicBooks().isEmpty());
 		Assertions.assertTrue(storage.selectPdfBooks().isEmpty());
 		Assertions.assertTrue(storage.selectAudioBooks().isEmpty());
 	}
 
-	private String createConnectionString() {
+	@AfterEach
+	public void tearDown() throws Exception {
+	}
+	
+	private static String createConnectionString() {
 		String connectionString = 
 				"mongodb+srv://user:8767224Leskinen@cluster0.ep9st.mongodb.net/myFirstDatabase?"
 				+ "retryWrites=true&w=majority";
@@ -49,16 +63,12 @@ public class StorageTest {
 		return connectionString;
 	}
 
-	private Properties loadProperties() throws FileNotFoundException, IOException {
+	private static Properties loadProperties() throws FileNotFoundException, IOException {
 		Properties p = new Properties();
 		p.load(new FileReader(new File("./test/testconfig.properties")));
 		return p;
 	}
 
-	@AfterEach
-	public void tearDown() throws Exception {
-		storage.disconnect();
-	}
 
 	@Test
 	public void testAddOrUpdate() throws Exception {
