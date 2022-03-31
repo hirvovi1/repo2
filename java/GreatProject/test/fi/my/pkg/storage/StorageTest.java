@@ -51,8 +51,7 @@ public class StorageTest {
 				"mongodb+srv://user:8767224Leskinen@cluster0.ep9st.mongodb.net/myFirstDatabase?"
 				+ "retryWrites=true&w=majority";
 		try { 
-			String localDbIsUsed = (String) loadProperties().get("LOCAL_DB");
-			if ("true".equals(localDbIsUsed)) {
+			if (isLocalDatabaseUsed()) {
 				connectionString =
 					"mongodb://127.0.0.1/myFirstDatabase?retryWrites=false&w=majority";
 				System.out.println("LOCAL DB IS USED *** ");
@@ -61,6 +60,10 @@ public class StorageTest {
 		} catch (IOException e) {
 		}
 		return connectionString;
+	}
+
+	private static boolean isLocalDatabaseUsed() throws FileNotFoundException, IOException {
+		return "true".equals((String) loadProperties().get("LOCAL_DB"));
 	}
 
 	private static Properties loadProperties() throws FileNotFoundException, IOException {
