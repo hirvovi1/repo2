@@ -40,12 +40,6 @@ public class Book implements Item {
 		if (!isValidISBN()) throw new IllegalArgumentException("invalid isbn " + isbn);
 	}
 	
-	public Document createDocument(String id) {
-		Document d = new Document();
-		d.append("id", id).append("isbn", isbn.getIsbn()).append("title", title.getTitle());
-		return d;
-	}
-	
 	public Document createDocument() {
 		Document d = new Document();
 		d.append("id", id.toString()).append("isbn", isbn.getIsbn()).append("title", title.getTitle());

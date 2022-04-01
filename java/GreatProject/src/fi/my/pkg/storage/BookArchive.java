@@ -48,7 +48,7 @@ public class BookArchive {
 		if (book == null)
 			throw new NullPointerException();
 		books.addLast(book);
-		idToBookMap.put(book.getId(), book);
+		idToBookMap.put(book.getId(), book);// TODO null check
 		isbnToBookMap.put(book.getIsbn(), book);
 		titleToBookMap.put(book.getTitle(), book);
 	}

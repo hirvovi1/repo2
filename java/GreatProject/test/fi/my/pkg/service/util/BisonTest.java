@@ -1,10 +1,7 @@
-package fi.my.pkg.service;
+package fi.my.pkg.service.util;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class BisonTest {
@@ -14,18 +11,6 @@ class BisonTest {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		bison = new Bison();
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
 	}
 
 	@Test

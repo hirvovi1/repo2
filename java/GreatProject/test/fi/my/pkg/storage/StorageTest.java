@@ -63,7 +63,7 @@ public class StorageTest {
 	}
 
 	private static boolean isLocalDatabaseUsed() throws FileNotFoundException, IOException {
-		return "true".equals((String) loadProperties().get("LOCAL_DB"));
+		return "true".equalsIgnoreCase((String) loadProperties().get("LOCAL_DB"));
 	}
 
 	private static Properties loadProperties() throws FileNotFoundException, IOException {
@@ -71,7 +71,6 @@ public class StorageTest {
 		p.load(new FileReader(new File("./test/testconfig.properties")));
 		return p;
 	}
-
 
 	@Test
 	public void testAddOrUpdate() throws Exception {

@@ -1,4 +1,4 @@
-package fi.my.pkg.service;
+package fi.my.pkg.service.util;
 
 import java.io.File;
 import java.lang.reflect.Constructor;

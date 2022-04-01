@@ -1,5 +1,6 @@
 package fi.my.pkg.service;
 
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
@@ -29,57 +30,35 @@ public class BookServiceTest {
 	@Mock
 	Storage mockStorage;
 
-	private BookService robot;
+	private BookService service;
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		robot = new BookService(mockStorage);
-	}
-
-	@Test
-	public void testAddBookToArchive() {
-		robot.addBookToArchive(new ClassicBook("978-3-16-148410-0", "title"));
-		Book b = robot.getNewestBookFromArchive();
-		Assertions.assertNotNull(b);
+		service = new BookServiceImpl(mockStorage);
+		addTestBooksWithTestIsbnList();
 	}
 
 	@Test
 	public final void testAddNullBookToArchive() {
 		Assertions.assertThrows(NullPointerException.class, () -> {
-			robot.addBookToArchive(null);
+			service.addBookToArchive(null);
 		});
-	}
-
-	@Test
-	public final void testGetNewestBookFromArchive() {
-		robot.addBookToArchive(new ClassicBook("978-3-16-148410-0", "title"));
-		Book b = new ClassicBook("978-3-16-148410-0", "title");
-		robot.addBookToArchive(b);
-		Assertions.assertEquals(b, robot.getNewestBookFromArchive());
 	}
 
 	@Test
 	public final void testSaveArchive() {
 		ClassicBook b = new ClassicBook("978-1-56581-231-4", "Crime and punishment");
 		TestDataUtil.createPages(b.getPages());
-		robot.addBookToArchive(b);
-		robot.saveArchive();
+		service.addBookToArchive(b);
+		service.saveArchive();
 		verify(mockStorage).addOrUpdate(ArgumentMatchers.eq(b));
 	}
 
 	@Test
 	void testFindABookFromArchiveWithIsbn() throws Exception {
-		loadTestPdfBooks();
 		Isbn isbnToFind = new Isbn("978-1-56581-231-4");
-		Book found = robot.findBook(isbnToFind);
+		Book found = service.findBook(isbnToFind);
 		assertBookIsFound(isbnToFind, found);
-	}
-
-	private void loadTestPdfBooks() throws IOException {
-		for (String isbn : TestDataUtil.loadTestIsbnList()) {
-			robot.addBookToArchive(new PdfBook(isbn, "title", "test/test.pdf"));
-		}
-		Assertions.assertEquals(30, robot.archiveSize());
 	}
 
 	private void assertBookIsFound(Isbn isbnToFind, Book found) {
@@ -89,8 +68,7 @@ public class BookServiceTest {
 	
 	@Test
 	void testFindABookFromArchiveWithTitle() throws Exception {
-		addTestBooksWithTestIsbnList();
-		Assertions.assertEquals(30, robot.archiveSize());
+		Assertions.assertEquals(30, service.archiveSize());
 		
 		final Book found = findWithTitleAndAssertBookIsFound(new Title("title9"));
 		deleteBookAndAssertDeletion(found.getIsbn());
@@ -99,32 +77,40 @@ public class BookServiceTest {
 	private void addTestBooksWithTestIsbnList() throws IOException {
 		int id = 1;
 		for (String isbn : TestDataUtil.loadTestIsbnList()) {
-			robot.addBookToArchive(new PdfBook(isbn, "title" + id, "test/test.pdf"));
+			service.addBookToArchive(new PdfBook(id, isbn, "title" + id, "test/test.pdf"));
 			id++;
 		}
+		Assertions.assertEquals(30, service.archiveSize());
 	}
 
 	private Book findWithTitleAndAssertBookIsFound(Title titleToFind) {
-		Book found = robot.findBook(titleToFind );
+		Book found = service.findBook(titleToFind );
 		Assertions.assertNotNull(found);
 		Assertions.assertEquals(found.getTitle(), titleToFind);
 		
 		final Id foundId = found.getId();
-		Assertions.assertNull(foundId);
 		Assertions.assertEquals(found.getIsbn().getIsbn(), "9789581054046");
 		return found;
 	}
 	
+	@Test
+	void testFindWithIdFindsBook() throws Exception {
+		Book found = service.findBook(new Id(7));
+		Assertions.assertNotNull(found);
+		Assertions.assertEquals(7, found.getId().asInt());
+		Assertions.assertEquals("title7", found.getTitle().getTitle());
+	}
+
 	private void deleteBookAndAssertDeletion(final Isbn isbn) {
-		robot.delete(isbn);
-		Assertions.assertNull(robot.findBook(isbn));
+		service.delete(isbn);
+		Assertions.assertNull(service.findBook(isbn));
 	}
 	
 	@Test
 	public final void testAddAudioToArchiveThrowsException() {
 		SoundFileNotFoundException e = 
 				Assertions.assertThrows(SoundFileNotFoundException.class, () -> {
-			robot.addBookToArchive(new AudioBook("9789581054046", "title", ""));
+			service.addBookToArchive(new AudioBook("9789581054046", "title", ""));
 		});
 		Assertions.assertEquals("file not found", e.getMessage());
 	}
@@ -133,15 +119,23 @@ public class BookServiceTest {
 	void testAddAudioBook() throws Exception {
 		addTestAudioBooksWithTestIsbnList();
 		Isbn isbnToFind = new Isbn("978-1-56581-231-4");
-		Book found = robot.findBook(isbnToFind);
+		Book found = service.findBook(isbnToFind);
 		assertBookIsFound(isbnToFind, found);
 	}
 	
 	private void addTestAudioBooksWithTestIsbnList() throws IOException {
 		int id = 1;
 		for (String isbn : TestDataUtil.loadTestIsbnList()) {
-			robot.addBookToArchive(new AudioBook(isbn, "title" + id, "test/test.pdf"));
+			service.addBookToArchive(new AudioBook(isbn, "title" + id, "test/test.pdf"));
 			id++;
 		}
+	}
+
+	@Test
+	void testImport() throws Exception {
+		service = new BookServiceImpl(mockStorage);
+		service.importBooks();
+		verify(mockStorage, times(32)).addOrUpdate(ArgumentMatchers.any(Book.class));
+		Assertions.assertEquals(32, service.archiveSize());
 	}
 }

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import fi.my.pkg.dependents.AudioBook;
 import fi.my.pkg.dependents.Book;
 import fi.my.pkg.dependents.PdfBook;
+import fi.my.pkg.service.util.Import;
 
 class ImportTest {
 
