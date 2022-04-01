@@ -37,10 +37,4 @@ public class ClassicBook extends Book {
 		return pages;
 	}
 
-	public void printPages() {
-		for (Page page : pages) {
-			page.print();
-		}
-	}
-
 }

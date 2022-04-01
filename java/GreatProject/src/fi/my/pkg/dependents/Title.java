@@ -16,7 +16,7 @@ public class Title {
 	}
 
 	private boolean isValid() {
-		return !title.isBlank();
+		return title != null && !title.isBlank();
 	}
 
 	public String getTitle() {
