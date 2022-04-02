@@ -10,13 +10,15 @@ public class Title {
 	}
 
 	private void validate() {
-		if (!isValid()) {
+		if (title == null)
+			throw new IllegalArgumentException("title was null");
+		if (isInvalid()) {
 			throw new IllegalArgumentException("invalid title");
 		}
 	}
 
-	private boolean isValid() {
-		return title != null && !title.isBlank();
+	private boolean isInvalid() {
+		return title.isBlank();
 	}
 
 	public String getTitle() {

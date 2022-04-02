@@ -16,6 +16,7 @@ public class BookArchive {
 	private final HashMap<Title, Book> titleToBookMap = new HashMap<Title, Book>();
 	private final HashMap<Isbn, Book> isbnToBookMap = new HashMap<Isbn, Book>();
 	private final LinkedList<Book> books = new LinkedList<Book>();
+	private final LinkedList<Book> deletedBooks = new LinkedList<Book>();
 	private final Storage storage;
 
 	public BookArchive(Storage storage) throws Exception {
@@ -25,7 +26,13 @@ public class BookArchive {
 		addAll(storage.selectAudioBooks());
 	}
 
-	public void saveAll() {
+	public void saveChanges() {
+		for (Book book : deletedBooks) {
+			Id id = book.getId();
+			if (id != null) {
+				storage.delete(id);
+			}
+		}
 		for (Item tem : getAll()) {
 			storage.addOrUpdate((Book) tem);
 		}
@@ -48,7 +55,9 @@ public class BookArchive {
 		if (book == null)
 			throw new NullPointerException();
 		books.addLast(book);
-		idToBookMap.put(book.getId(), book);// TODO null check
+		if (book.getId() != null) {
+			idToBookMap.put(book.getId(), book);
+		}
 		isbnToBookMap.put(book.getIsbn(), book);
 		titleToBookMap.put(book.getTitle(), book);
 	}
@@ -58,7 +67,12 @@ public class BookArchive {
 			return null;
 		Book book = books.removeLast();
 		removeFromMaps(book);
+		addToDeletedBooks(book);
 		return book;
+	}
+
+	private void addToDeletedBooks(Book book) {
+		deletedBooks.add(book);
 	}
 
 	private void removeFromMaps(Book book) {
@@ -105,10 +119,17 @@ public class BookArchive {
 		}
 	}
 
+	public void delete(Book book) {
+		books.remove(book);
+		removeFromMaps(book);
+		addToDeletedBooks(book);
+	}
+
 	public void delete(Isbn isbn) {
 		Book book = find(isbn);
 		books.remove(book);
 		removeFromMaps(book);
+		addToDeletedBooks(book);
 	}
 
 }

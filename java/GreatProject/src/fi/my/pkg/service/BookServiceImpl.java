@@ -40,7 +40,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public void saveArchive() {
-		archive.saveAll();
+		archive.saveChanges();
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class BookServiceImpl implements BookService {
 		final Import bookImport = new Import();
 		archive.addAll(bookImport.importAudioBooks());
 		archive.addAll(bookImport.importPdfBooks());
-		archive.saveAll();
+		archive.saveChanges();
 	}
 	
 }

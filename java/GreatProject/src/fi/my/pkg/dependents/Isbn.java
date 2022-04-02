@@ -12,7 +12,11 @@ public class Isbn {
 	}
 
 	private void validate() {
-		if (!new ISBNValidator().isValid(isbn)) {
+		if (isbn == null) {
+			throw new IllegalArgumentException("isbn was null");
+		} else if (isbn.isBlank()) {
+			throw new IllegalArgumentException("isbn was blank string");
+		} else if (!new ISBNValidator().isValid(isbn)) {
 			throw new IllegalArgumentException("invalid isbn " + isbn);
 		}
 	}

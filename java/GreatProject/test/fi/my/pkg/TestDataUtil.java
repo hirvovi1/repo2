@@ -4,10 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 import fi.my.pkg.dependents.AudioBook;
+import fi.my.pkg.dependents.Book;
 import fi.my.pkg.dependents.ClassicBook;
 import fi.my.pkg.dependents.Page;
 import fi.my.pkg.dependents.PdfBook;
@@ -74,6 +76,16 @@ public class TestDataUtil {
 			line = reader.readLine();
 		}
 		reader.close();
+		return list;
+	}
+
+	public static Collection<Book> createPdfBooksFromIsbnList() throws IOException, PdfFileNotFoundException {
+		int id = 1;
+		List<Book> list = new LinkedList<Book>();
+		for (String isbn : TestDataUtil.loadTestIsbnList()) {
+			list.add(new PdfBook(id, isbn, "title" + id, "test/test.pdf"));
+			id++;
+		}
 		return list;
 	}
 }

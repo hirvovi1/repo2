@@ -41,4 +41,16 @@ class IdTest {
 			Assertions.assertFalse(new Id(1).equals(Integer.valueOf(1)));
 	}
 
+	@Test
+	void testIdEqualsId() throws Exception {
+		Assertions.assertEquals(new Id(1).hashCode(), new Id(1).hashCode());
+		Assertions.assertEquals(new Id(1).asInt(), new Id(1).asInt());
+		Assertions.assertEquals(new Id(1).toString(), new Id(1).toString());
+	}
+
+	@Test
+	void testStringConstructor() throws Exception {
+		Assertions.assertEquals(new Id("1"), new Id(1));
+	}
+
 }

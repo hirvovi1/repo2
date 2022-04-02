@@ -20,6 +20,7 @@ import fi.my.pkg.dependents.ClassicBook;
 import fi.my.pkg.dependents.Id;
 import fi.my.pkg.dependents.Isbn;
 import fi.my.pkg.dependents.PdfBook;
+import fi.my.pkg.dependents.PdfFileNotFoundException;
 import fi.my.pkg.dependents.SoundFileNotFoundException;
 import fi.my.pkg.dependents.Title;
 import fi.my.pkg.storage.Storage;
@@ -75,12 +76,16 @@ public class BookServiceTest {
 	}
 
 	private void addTestBooksWithTestIsbnList() throws IOException {
+		createBooksFromIsbnList();
+		Assertions.assertEquals(30, service.archiveSize());
+	}
+
+	private void createBooksFromIsbnList() throws IOException, PdfFileNotFoundException {
 		int id = 1;
 		for (String isbn : TestDataUtil.loadTestIsbnList()) {
 			service.addBookToArchive(new PdfBook(id, isbn, "title" + id, "test/test.pdf"));
 			id++;
 		}
-		Assertions.assertEquals(30, service.archiveSize());
 	}
 
 	private Book findWithTitleAndAssertBookIsFound(Title titleToFind) {

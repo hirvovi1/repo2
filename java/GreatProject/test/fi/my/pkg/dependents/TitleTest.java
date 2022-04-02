@@ -40,7 +40,7 @@ class TitleTest {
 		IllegalArgumentException e = Assertions.assertThrows(IllegalArgumentException.class, () -> {
 			new Title(null);
 		});
-		Assertions.assertEquals("invalid title", e.getMessage());
+		Assertions.assertEquals("title was null", e.getMessage());
 	}
 
 	@Test
