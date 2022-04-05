@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import fi.my.pkg.service.BookService;
 import fi.my.pkg.service.BookServiceImpl;
-import fi.my.pkg.storage.Storage;
 
 public class Main {
 
@@ -17,7 +16,7 @@ public class Main {
 		BookService br;
 		try {
 			createTestFilesForImport();
-			br = new BookServiceImpl(new Storage());
+			br = BookServiceImpl.instance();
 			br.importBooks();
 			System.out.println("books in arcive: " + br.archiveSize());
 		} catch (Exception e) {
@@ -27,8 +26,7 @@ public class Main {
 	
 	public void createTestFilesForImport() throws IOException {
 		for (String isbn : TestDataUtil.loadTestIsbnList()) {
-			String s = "./test/import/pdf/" + isbn + ".pdf";
-			new File(s).createNewFile();
+			new File("./test/import/pdf/" + isbn + ".pdf").createNewFile();
 		}
 	}
 

@@ -3,6 +3,7 @@ package fi.my.pkg.storage;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 import fi.my.pkg.dependents.Book;
 import fi.my.pkg.dependents.Id;
@@ -130,6 +131,10 @@ public class BookArchive {
 		books.remove(book);
 		removeFromMaps(book);
 		addToDeletedBooks(book);
+	}
+
+	public List<Book> listBooks() {
+		return books;
 	}
 
 }

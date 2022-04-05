@@ -1,6 +1,9 @@
 package fi.my.pkg.dependents;
 
-public class Id {
+import java.io.Serializable;
+
+public class Id implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 
 	public Id(int id) {
@@ -29,6 +32,10 @@ public class Id {
 
 	public int asInt() {
 		return id.intValue();
+	}
+
+	public Integer getId() {
+		return id;
 	}
 
 }

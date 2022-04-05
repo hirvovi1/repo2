@@ -1,5 +1,7 @@
 package fi.my.pkg.service;
 
+import java.util.List;
+
 import fi.my.pkg.dependents.Book;
 import fi.my.pkg.dependents.Id;
 import fi.my.pkg.dependents.Isbn;
@@ -12,8 +14,12 @@ public class BookServiceImpl implements BookService {
 	
 	private final BookArchive archive;
 
-	public BookServiceImpl(Storage storage) throws Exception {
+	BookServiceImpl(Storage storage) throws Exception {
 		archive = new BookArchive(storage);
+	}
+
+	public static BookService instance() throws Exception {
+		return new BookServiceImpl(new Storage());
 	}
 
 	@Override
@@ -21,8 +27,11 @@ public class BookServiceImpl implements BookService {
 		archive.push(book);
 	}
 	
+	@Override
+	public Book undoLastAddBookToArchive() {
+		return archive.pop();
+	}
 
-	
 	@Override
 	public Book findBook(Isbn isbn) {
 		return archive.find(isbn);
@@ -54,11 +63,21 @@ public class BookServiceImpl implements BookService {
 	}
 	
 	@Override
+	public void delete(Book book) {
+		archive.delete(book);
+	}
+
+	@Override
 	public void importBooks() throws Exception {
 		final Import bookImport = new Import();
 		archive.addAll(bookImport.importAudioBooks());
 		archive.addAll(bookImport.importPdfBooks());
 		archive.saveChanges();
+	}
+
+	@Override
+	public List<Book> listBooks() {
+		return archive.listBooks();
 	}
 	
 }
