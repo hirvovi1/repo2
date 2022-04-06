@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fi.my.pkg.dependents.Book;
+import fi.my.pkg.dependents.Id;
 import fi.my.pkg.dependents.Isbn;
+import fi.my.pkg.dependents.Title;
 import fi.my.pkg.service.BookService;
 import fi.my.pkg.service.BookServiceImpl;
 
@@ -33,8 +35,23 @@ public class Controller {
 	}
 	
 	@GetMapping("/find")
-	public Book find(@RequestParam(value = "isbn") String isbn){
+	public Book findWithIsbn(@RequestParam(value = "isbn") String isbn){
 		return bookService.findBook(new Isbn(isbn));
 	}
 	
+	@GetMapping("/find")
+	public Book findWithTitle(@RequestParam(value = "title") String title){
+		return bookService.findBook(new Title(title));
+	}
+	
+	@GetMapping("/find")
+	public Book findWithId(@RequestParam(value = "id") String id){
+		return bookService.findBook(new Id(id));
+	}
+	
+	@GetMapping("/delete")
+	public void deleteWithId(@RequestParam(value = "id") String id){
+		Book book = bookService.findBook(new Id(id));
+		if (book != null) bookService.delete(book);
+	}
 }
