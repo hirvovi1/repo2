@@ -1,6 +1,7 @@
 package fi.my.pkg.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -15,44 +16,33 @@ import fi.my.pkg.dependents.PdfBook;
 
 class ImportTest {
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-	}
-
 	@Test
 	final void testPdfImportCreatesPdfBook() throws Exception {
 		List<Book> books = new Import().importPdfBooks();
 		Assertions.assertEquals(31, books.size());
-		Book book = books.get(0);
-		Assertions.assertTrue(book instanceof PdfBook);
-		assertPdfBookFieldsMatch((PdfBook) book);
+		Optional<Book> book = books.stream().filter(b -> b.getIsbn().getIsbn().equals("9789894808169")).findFirst();
+		Assertions.assertTrue(book.isPresent());
+		Book plainBook = book.get();
+		Assertions.assertTrue(plainBook instanceof PdfBook);
+		assertPdfBookFieldsMatch((PdfBook) plainBook);
 	}
 
-	private void assertPdfBookFieldsMatch(PdfBook pbook) {
-		Assertions.assertEquals(pbook.getIsbn().getIsbn(), "9789894808169");
-		Assertions.assertEquals(pbook.getPdfFile().getName(), "9789894808169.pdf");
+	private void assertPdfBookFieldsMatch(PdfBook book) {
+		Assertions.assertEquals(book.getIsbn().getIsbn(), "9789894808169");
+		Assertions.assertEquals(book.getPdfFile().getName(), "9789894808169.pdf");
 	}
 	
 	@Test
 	void testAudioImportCreatesAudioBook() throws Exception {
 		List<Book> books = new Import().importAudioBooks();
 		Assertions.assertEquals(1, books.size());
-		Book book = books.get(0);
-		assertAudioBookFieldsMatch((AudioBook) book);
+		assertAudioBookFieldsMatch((AudioBook) getFirstBook(books));
 	}
-	
+
+	private Book getFirstBook(List<Book> books) {
+		return books.get(0);
+	}
+
 	private void assertAudioBookFieldsMatch(AudioBook pbook) {
 		Assertions.assertEquals(pbook.getIsbn().getIsbn(), "978-3-16-148410-0");
 		Assertions.assertEquals(pbook.getSoundFile().getName(), "978-3-16-148410-0.mp3");
