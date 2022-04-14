@@ -1,0 +1,6 @@
+
+export JAVA_HOME=/usr/lib/jvm/default-java
+
+g++ -c -fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux fi_jni_test_Tester.cpp -o fi_jni_test_Tester.o
+
+g++ -shared -fPIC -o libnative.so fi_jni_test_Tester.o -lc
