@@ -8,14 +8,6 @@ import fi.my.pkg.TestDataUtil;
 
 class PageTest {
 
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-	}
-
 	@Test
 	final void test() {
 		Page p = new Page(1, TestDataUtil.getLines());

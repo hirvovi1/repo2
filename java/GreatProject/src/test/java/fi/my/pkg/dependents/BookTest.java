@@ -8,18 +8,11 @@ import org.junit.jupiter.api.Test;
 
 class BookTest {
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
 
 	private Book book;
 
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp() {
 		this.book = new Book(777, "978-952-264-186-1", "The Warlord of Mars");
 	}
 
@@ -59,7 +52,7 @@ class BookTest {
 	}
 
 	@Test
-	void testValidations() throws Exception {
+	void testValidations() {
 		String msg = verifyException(1, "", "title");
 		assertMessage("isbn was blank string", msg);
 
@@ -77,9 +70,8 @@ class BookTest {
 	}
 
 	private String verifyException(int id, String isbn, String title) {
-		Throwable e = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-			new Book(id, isbn, title);
-		});
+		Throwable e =
+				Assertions.assertThrows(IllegalArgumentException.class,	() -> new Book(id, isbn, title));
 		return e.getMessage();
 	}
 

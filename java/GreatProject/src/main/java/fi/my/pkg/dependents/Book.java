@@ -11,7 +11,7 @@ public class Book implements Item {
 		this.id = null;
 		this.isbn = new Isbn(isbn);
 		this.title = new Title(title);
-		System.out.println("new Book " + toString());
+		System.out.println("new Book " + this);
 	}
 	
 	protected Book(int id, String isbn, String title) {
@@ -95,10 +95,7 @@ public class Book implements Item {
 		} else if (!isbn.equals(other.isbn))
 			return false;
 		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		return true;
+			return other.title == null;
+		} else return title.equals(other.title);
 	}
 }

@@ -10,12 +10,12 @@ class BisonTest {
 	private static Bison bison;
 
 	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
+	static void setUpBeforeClass() {
 		bison = new Bison(Fixture.IMPORT_PATH);
 	}
 
 	@Test
-	void testTitle() throws Exception {
+	void testTitle() {
 		String title = bison.getTitle("9792149925986");
 		Assertions.assertEquals(title, "The Torrents of Spring");
 	}

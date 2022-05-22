@@ -7,7 +7,7 @@ import org.bson.Document;
 
 public class ClassicBook extends Book {
 
-	private final List<Page> pages = new LinkedList<Page>();
+	private final List<Page> pages = new LinkedList<>();
 	
 	public ClassicBook(String isbn, String title) {
 		super(isbn, title);
@@ -25,7 +25,7 @@ public class ClassicBook extends Book {
 	}
 
 	private List<Document> createPagesToDocument() {
-		List<Document> pageDocs = new LinkedList<Document>();
+		List<Document> pageDocs = new LinkedList<>();
 		for (Page page : pages) {
 			Document pageDoc = new Document("number", page.getNumber());
 			pageDocs.add(pageDoc.append("lines", page.getLines()));

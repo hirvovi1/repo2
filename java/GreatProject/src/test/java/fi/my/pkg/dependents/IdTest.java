@@ -9,21 +9,6 @@ import org.junit.jupiter.api.Test;
 
 class IdTest {
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-	}
 
 	@Test
 	final void testIdNotEqualsId() {
@@ -38,7 +23,7 @@ class IdTest {
 	@SuppressWarnings("unlikely-arg-type")
 	@Test
 	final void testIdEqualsNotWrongType() {
-			Assertions.assertFalse(new Id(1).equals(Integer.valueOf(1)));
+			Assertions.assertFalse(new Id(1).equals(1));
 	}
 
 	@Test

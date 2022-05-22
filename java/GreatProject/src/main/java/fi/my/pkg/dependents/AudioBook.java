@@ -6,7 +6,7 @@ import org.bson.Document;
 
 public class AudioBook extends Book {
 	
-	private File soundFile;
+	private final File soundFile;
 	
 	public AudioBook(String isbn, String title, String fileName) 
 			throws SoundFileNotFoundException 
